@@ -22,9 +22,9 @@
 	}
 }
 /* Parallax one */
-.parallax-one {
-	background-image: url("../../img/backgrounds/1.jpg");
-}
+/*.parallax-one {*/
+/*	background-image: url("../../img/backgrounds/1.jpg");*/
+/*}*/
 .parallax-one .p-element h2{
 	font-size: 90px;
 	line-height:105px;
