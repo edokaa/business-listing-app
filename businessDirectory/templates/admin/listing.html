@@ -1,0 +1,161 @@
+{% load static %}
+
+{% include 'include/header.html' %}
+<!-- Header two Starts -->
+{% include 'include/nav-bar.html' %}
+  <!-- Page heading two starts -->
+    <div class="page-heading-two">
+        <div class="container">
+            <h2>Business Listings</h2>
+            <div class="breads">
+    {#            Nav ------- Home/category.name #}
+                <a href="{% url 'businessDirectory:home' %}">Home</a> /
+                <a href="{% url 'businessDirectory:admin' %}">Dashboard</a> / Listings
+
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+  <div id="main" class="container main">
+
+      <div class="row">
+
+        <!-- Left side columns -->
+      <div class="col-md-9 col-sm-12 col-xs-12">
+        <!-- Listings -->
+            <div class="col-12">
+      <div class="card recent-sales overflow-auto">
+
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-4 col-sm-6">
+                  <h2>Business Listings<small>{{ businesses.count }}</small></h2>
+                </div>
+                <div class="col-md-4 col-sm-6">
+                </div>
+                <div class="col-md-4 col-sm-6 text-right">
+                  <button class="btn btn-success btn-lg" style="margin-left: auto" data-toggle="modal" data-target="#addBusinessModal"><i style="font-size: 2rem" class="bi bi-plus"></i></button>
+                </div>
+            </div>
+          <table class="table table-borderless datatable">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Vendor</th>
+                <th scope="col">Business Name</th>
+                <th scope="col">Campus</th>
+                <th scope="col">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+            {% if businesses %}
+                {% for business in businesses %}
+                   <tr>
+                        <th scope="row"><a href="#">{{ forloop.counter }}</a></th>
+                        <td>{{ business.owner}}</td>
+                        <td><a href="{% url 'businessDirectory:business-details' pk=business.id %}" class="text-primary">{{ business.name }}</a></td>
+                        <td>{{ business.location }}</td>
+                        <td><a href="{% url 'businessDirectory:delete-listing' pk=business.id %}" class="btn btn-sm btn-danger">Delete</a></td>
+                   </tr>
+
+                {% endfor %}
+            {% else %}
+                <div class="alert alert-warning">No Business in database</div>
+            {% endif %}
+            </tbody>
+          </table>
+
+        </div>
+
+      </div>
+    </div><!-- End Listings -->
+        </div><!-- End Left side columns -->
+        <!-- Right side columns -->
+          <div class="col-md-3 col-sm-12 col-xs-12">
+            {% include 'include/side-bar-auth.html' %}
+          </div><!-- End Right side columns -->
+      </div>
+
+  </div><!-- End #main -->
+
+<div id="addBusinessModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog">
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+
+                <h4 class="modal-title" id="myModalLabel">Add a Business Listing</h4>
+
+            </div>
+                <form style="max-width: 615px" class="form-horizontal" role="form" method="post" onsubmit="return verifyPassword(event)">
+
+                    {% csrf_token %}
+
+            <div class="modal-body">
+                <span class="mb-2">Note That the vendor will modify the listing to add the other required fields</span>
+                    <!-- Form Group -->
+                    <div class="form-group">
+                        <!-- Label -->
+                        <label for="name" class="col-sm-3 control-label">Business Name<span class="text-danger">*</span></label>
+                        <div class="col-sm-9">
+                            <!-- Input -->
+                            {{form.name}}
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <!-- Label -->
+                        <label for="name" class="col-sm-3 control-label">Category<span class="text-danger">*</span></label>
+                        <div class="col-sm-9">
+                            <!-- Input -->
+                            {{form.category}}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <!-- Label -->
+                        <label for="name" class="col-sm-3 control-label">Campus</label>
+                        <div class="col-sm-9">
+                            <!-- Input -->
+                            {{form.location}}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <!-- Label -->
+                        <label for="name" class="col-sm-3 control-label">Vendor</label>
+                        <div class="col-sm-9">
+                            <!-- Input -->
+                            <select name="vendor" required class="form-control">
+                                  <option value="" selected="">---------</option>
+                                {% for vendor in vendors %}
+                                  <option value={{ vendor.id }}>@{{ vendor.username}}</option>
+
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+
+            </div>
+            <div class="modal-footer">
+                    <div class="form-group">
+                        <div class="col-sm-offset-3 col-sm-9">
+                            <!-- Buton -->
+                            <button type="submit" class="btn btn-red">Add</button>&nbsp;
+                            <button type="reset" class="btn btn-white">Reset</button>
+                        </div>
+                    </div>
+
+            </div>
+                </form>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    $('input').addClass('form-control');
+    $('select').addClass('form-control');
+</script>
+        {% include 'include/footer.html' %}

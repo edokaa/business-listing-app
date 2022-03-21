@@ -1,0 +1,115 @@
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% include 'include/header.html' %}
+<!-- Header two Starts -->
+{% include 'include/nav-bar.html' %}
+
+  <!-- Page heading two starts -->
+    <div class="page-heading-two">
+        <div class="container">
+            <h2>Listing Categories</h2>
+            <div class="breads">
+    {#            Nav ------- Home/category.name #}
+                <a href="{% url 'businessDirectory:home' %}">Home</a> /
+                <a href="{% url 'businessDirectory:admin' %}">Dashboard</a> /
+                <a href="{% url 'businessDirectory:admin-listing' %}">Listings</a> / Categories
+
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+
+  <div id="main" class="container main">
+      <div class="row">
+
+        <!-- Left side columns -->
+      <div class="col-md-9 col-sm-12 col-xs-12">
+        <!-- Listings -->
+            <div class="col-12">
+      <div class="card recent-sales overflow-auto">
+
+        <div class="card-body">
+        <div class="card-title">
+            <div class="row">
+                <div class="col-md-4 col-sm-6">
+                  <h4>Listing Categories <small>{{ count }}</small></h4>
+                </div>
+                <div class="col-md-4 col-sm-6">
+                </div>
+                <div class="col-md-4 col-sm-6 text-right">
+                  <button class="btn btn-success btn-lg" style="margin-left: auto" data-toggle="modal" data-target="#addCategoryModal"><i style="font-size: 2rem" class="bi bi-plus"></i></button>
+                </div>
+            </div>
+        </div>
+          <table class="table table-borderless datatable">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Category Name</th>
+                <th scope="col">No of Listings</th>
+                <th scope="col">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+            {% if categories %}
+                {% for category, count in categories.items %}
+                   <tr>
+                        <th scope="row">{{ forloop.counter }}</th>
+                        <td>{{ category.name }}</td>
+                        <td>{{ count }}</td>
+                        <td><a class="btn btn-sm btn-danger" href="{% url 'businessDirectory:delete-category' pk=category.id %}">Delete</a></td>
+                   </tr>
+                {% endfor %}
+            {% else %}
+                <div class="alert alert-warning">No Business Categories in database</div>
+            {% endif %}
+            </tbody>
+          </table>
+
+        </div>
+
+      </div>
+    </div><!-- End Listings -->
+        </div><!-- End Left side columns -->
+
+        <!-- Right side columns -->
+          <div class="col-md-3 col-sm-12 col-xs-12">
+            {% include 'include/side-bar-auth.html' %}
+          </div><!-- End Right side columns -->
+      </div>
+
+  </div><!-- End #main -->
+<div id="addCategoryModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+
+    <div class="modal-dialog">
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+
+                <h4 class="modal-title" id="myModalLabel">Add Category</h4>
+
+            </div>
+
+            <div class="modal-body">
+                {% crispy form %}
+            </div>
+
+            <div class="modal-footer">
+        <button type="submit" class="btn btn-color">Add</button>
+
+            </div>
+
+        </div>
+
+    </div>
+                    </form>
+
+</div>
+
+{% include 'include/footer.html' %}

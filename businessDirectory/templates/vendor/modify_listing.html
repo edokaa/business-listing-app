@@ -1,0 +1,233 @@
+{% load static %}
+
+{% include 'include/header.html' %}
+<!-- Header two Starts -->
+{% include 'include/nav-bar.html' %}
+
+  <!-- Page heading two starts -->
+    <div class="page-heading-two">
+        <div class="container">
+            <h2>{{ listing.name }}</h2>
+            <div class="breads">
+    {#            Nav ------- Home/category.name #}
+                <a href="{% url 'businessDirectory:home' %}">Home</a> /
+                <a href="{% url 'businessDirectory:user-profile' user_type=user_type %}">Vendor</a> /
+                <a href="{% url 'businessDirectory:vendor-listing' %}">Listings</a> / {{ listing.name }}
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+
+    <div class="container">
+
+          <div class="row p-5">
+        <div class="col-md-4 col-sm-12">
+
+          <div class="card">
+            <div class="card-body profile-card pt-4 d-flex flex-column text-center">
+              <img src="/{{ listing.logo }}" alt="Profile" class="rounded-circle" width="300px" height="200px">
+              <h4>{{ listing.name }}</h4>
+              <h6>{{ listing.category }}</h6>
+              <small>{{ listing.location }}</small>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="col-md-8 col-sm-12">
+                            <div class="nav-tabs-one">
+                        <!-- Nav tabs -->
+                        <ul class="nav nav-tabs">
+                            <li class="active"><a href="#p-nav-1" data-toggle="tab">Overview</a></li>
+                            <li><a href="#p-nav-2" data-toggle="tab">Edit Listing</a></li>
+                            <li><a href="#p-nav-3" data-toggle="tab">Set Location</a></li>
+                            <li class="review-tab"><a href="#p-nav-4" data-toggle="tab">Image Gallery</a></li>
+                        </ul>
+                        <!-- Tab content -->
+                        <div class="tab-content">
+                            <div class="tab-pane fade in active" id="p-nav-1">
+                                <div class="single-property">
+                  <h5 class="card-title">Description</h5>
+                  <p class="small fst-italic">{{ listing.description }}</p>
+
+                  <h5 class="card-title">Business Details</h5>
+
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4 ">Category</div>
+                      <div class="col-lg-9 col-md-8"><b>{{ listing.category }}</b></div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4">Address</div>
+                      <div class="col-lg-9 col-md-8"><b>{{ listing.address }}</b></div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4">Campus</div>
+                      <div class="col-lg-9 col-md-8"><b>{{ listing.location }}</b></div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4">Website</div>
+                      <div class="col-lg-9 col-md-8"><b>{{ listing.website }}</b></div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4">Phone Number</div>
+                      <div class="col-lg-9 col-md-8"><b>{{ listing.phone }}</b></div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4">Email</div>
+                      <div class="col-lg-9 col-md-8"><b>{{ listing.email }}</b></div>
+                  </div>
+
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="p-nav-2">
+                                <div class="single-property sp-agent">
+                  <!-- Profile Edit Form -->
+                  <form method="post" enctype="multipart/form-data">
+                      {% csrf_token %}
+                    <div class="row mb-3">
+                      <label for="profileImage" class="col-md-4 col-lg-3 col-form-label">Business Logo</label>
+                      <div class="col-md-8 col-lg-9">
+                        <img src="/{{listing.logo}}" alt="Profile" height="200px" width="200px">
+                        <div class="pt-2">
+                            <input type="file" name="logo" class="form-control clearablefileinput" id="id_logo">
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="row mb-3">
+                      <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Business Name</label>
+                      <div class="col-md-8 col-lg-9">
+                        <input name="name" type="text" class="form-control" id="fullName" value="{{ listing.name }}" readonly>
+                      </div>
+                    </div>
+
+                    <div class="row mb-3">
+                      <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Description</label>
+                      <div class="col-md-8 col-lg-9">
+                          <textarea name="description" type="text" class="form-control" id="fullName" style="height: 100px">{{ listing.description }}</textarea>
+                      </div>
+                    </div>
+
+                    <div class="row mb-3">
+                      <label for="Phone" class="col-md-4 col-lg-3 col-form-label">Phone</label>
+                      <div class="col-md-8 col-lg-9">
+                        <input name="phone" type="text" class="form-control" id="Phone" value="{{listing.phone}}">
+                      </div>
+                    </div>
+
+                    <div class="row mb-3">
+                      <label for="Email" class="col-md-4 col-lg-3 col-form-label">Email</label>
+                      <div class="col-md-8 col-lg-9">
+                        <input name="email" type="email" class="form-control" id="Email" value="{{ listing.email }}">
+                      </div>
+                    </div>
+
+                    <div class="row mb-3">
+                      <label for="website" class="col-md-4 col-lg-3 col-form-label">Website</label>
+                      <div class="col-md-8 col-lg-9">
+                        <input name="website" type="text" class="form-control" id="website" value="{{ listing.website }}">
+                      </div>
+                    </div>
+
+                    <div class="row mb-3">
+                      <label for="address" class="col-md-4 col-lg-3 col-form-label">Address</label>
+                      <div class="col-md-8 col-lg-9">
+                        <input name="address" type="text" class="form-control" id="address" value="{{ listing.address }}">
+                      </div>
+                    </div>
+
+                    <div class="row mb-3">
+                      <label for="landmark" class="col-md-4 col-lg-3 col-form-label">Nearest Landmark</label>
+                      <div class="col-md-8 col-lg-9">
+                        <input name="landmark" type="text" class="form-control" id="landmark" value="{{ listing.landmark }}">
+                      </div>
+                    </div>
+
+                    <div class="row mb-3">
+                      <label for="website" class="col-md-4 col-lg-3 col-form-label">Campus</label>
+                      <div class="col-md-8 col-lg-9">
+                        <input name="campus" type="text" class="form-control" id="campus" value="{{ listing.location }}" readonly>
+                      </div>
+                    </div>
+
+                    <div class="text-center">
+                      <button name="edit_business" type="submit" class="btn btn-primary" value="save">Save Changes</button>
+                    </div>
+                  </form><!-- End Profile Edit Form -->
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="p-nav-3">
+                                <div class="single-property sp-agent">
+                                    <div id="map"></div>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="p-nav-4">
+                                 <span class="review-form-holder"></span>
+                                 <div style="margin-top:20px"></div>
+                    {% if images %}
+                        <div class="widget-content hot-properties">
+                            <ul class="list-unstyled text-center">
+                                {% for image in images %}
+                                    <form method="post" action="{% url 'businessDirectory:delete-image' pk=image.id %}">
+                                    {% csrf_token %}
+                                        <li class="col-xs-12 col-sm-6 col-md-4">
+                                        <!-- Image -->
+                                        <img class="img-responsive img-thumbnail" src="/{{ image.image_url }}" style="width:200px;height:150px" />
+                                        <!-- Location -->
+                                            <button type="submit" style="margin: 20px" class="btn btn-danger"><i class="fa fa-trash"></i></button>
+                                        <div class="clearfix"></div>
+                                        </li>
+
+                                    </form>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    {% else %}
+                        <div class="alert alert-warning">No Images in Listing gallery</div>
+                    {% endif %}
+                <div class="justify-content-center">
+                  <form method="post" enctype="multipart/form-data">
+                      {% csrf_token %}
+                    <div class="row" style="margin: 20px">
+                      <label for="gallery_image" class="col-md-4 col-lg-3 col-form-label">Add Image</label>
+                      <div class="col-md-8 col-lg-9">
+                        <div class="pt-2">
+                            <input type="file" name="gallery_image" class="form-control clearablefileinput" id="id_logo">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="text-center" style="margin-top: 20px">
+                      <button type="submit" class="btn btn-primary">Upload</button>
+                    </div>
+                  </form>
+                </div>
+                            </div> <!-- End of p-nav-3 -->
+                        </div> <!-- end of tab-content -->
+                    </div> <!-- end of  nav-tabs-one -->
+        </div>
+      </div>
+
+</div>
+
+<script async src="https://maps.googleapis.com/maps/api/js?key={{ api_key }}&callback=initMap">
+</script>
+
+    <script>
+        let map;
+
+function initMap() {
+        var mapOptions = {
+            center: { lat: 6.8644553, lng: 7.4060996 },
+            zoom: 15,
+        };
+  map = new google.maps.Map(document.getElementById("map"), mapOptions);
+}
+    </script>
+
+
+        {% include 'include/footer.html' %}

@@ -1,0 +1,115 @@
+{% load static %}
+
+{% include 'include/header.html' %}
+
+<!-- Outer Starts -->
+<div class="outer">
+
+<!-- Header two Starts -->
+{% include 'include/nav-bar.html' %}
+
+<div class="page-heading-two">
+    <div class="container">
+        <h2>SIGNUP</h2>
+        <div class="clearfix"></div>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <!-- Login starts -->
+            <div class="well login-reg-form" >
+                <!-- Heading -->
+                <h4>Register as a {{ user_type }}</h4>
+                <hr />
+                <!-- Form -->
+                <!-- Form Horizontal -->
+                <form style="max-width: 615px" class="form-horizontal" role="form" method="post" onsubmit="return verifyPassword(event)">
+
+                    {% csrf_token %}
+                    <!-- Form Group -->
+                    <div class="form-group">
+                        <!-- Label -->
+                        <label for="name" class="col-sm-3 control-label">First Name<span class="text-danger">*</span></label>
+                        <div class="col-sm-9">
+                            <!-- Input -->
+                            <input type="text" name="first_name"  placeholder="First name" class="form-control" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <!-- Label -->
+                        <label for="name" class="col-sm-3 control-label">Last Name<span class="text-danger">*</span></label>
+                        <div class="col-sm-9">
+                            <!-- Input -->
+                            <input type="text" name="last_name" placeholder="Last Name" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <!-- Label -->
+                        <label for="name" class="col-sm-3 control-label">Phone</label>
+                        <div class="col-sm-9">
+                            <!-- Input -->
+                            <input type="text" name="phone" placeholder="Phone Number" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="email" class="col-sm-3 control-label">Email<span class="text-danger">*</span></label>
+                        <div class="col-sm-9">
+                            <input type="email" name="email" placeholder="Email" class="form-control" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="username" class="col-sm-3 control-label">Username<span class="text-danger">*</span></label>
+                        <div class="col-sm-9">
+                            <input type="text" name="username" placeholder="Username" class="form-control" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password" class="col-sm-3 control-label">Password<span class="text-danger">*</span></label>
+                        <div class="col-sm-9">
+                            <input type="password" name="password" placeholder="Password" class="form-control" required id="password1">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password" class="col-sm-3 control-label">Confirm Password <span class="text-danger" id="pswd_error">*</span></label>
+                        <div class="col-sm-9">
+                            <input type="password" name="repassword"  placeholder="Confirm password" class="form-control" required id="password2">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-3 col-sm-9">
+                            <!-- Buton -->
+                            <button type="submit" class="btn btn-red">Register</button>&nbsp;
+                            <button type="reset" class="btn btn-white">Reset</button>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+            <!-- Login ends -->
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+
+</div>
+
+</div>
+
+<script>
+function verifyPassword(e){
+    var password1 = document.getElementById("password1").value;
+    var password2 = document.getElementById("password2").value;
+
+    if(password1 !== password2){
+        e.preventDefault()
+        document.getElementById("pswd_error").innerHTML = 'password does not match, try again!'
+    }
+}
+</script>
+
+{% include 'include/footer.html' %}

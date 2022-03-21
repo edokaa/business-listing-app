@@ -1,0 +1,179 @@
+{% load static %}
+
+{% include 'include/header.html' %}
+<!-- Header two Starts -->
+{% include 'include/nav-bar.html' %}
+
+  <!-- Page heading two starts -->
+    <div class="page-heading-two">
+        <div class="container">
+            <h2>USERS</h2>
+            <div class="breads">
+    {#            Nav ------- Home/category.name #}
+                <a href="{% url 'businessDirectory:home' %}">Home</a> /
+                <a href="{% url 'businessDirectory:admin' %}">Dashboard</a> / {{ user_type }}
+
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+  <div id="main" class="container main">
+        <div class="card recent-sales overflow-auto">
+
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-4 col-sm-6">
+                  <h2>{{ user_type }} <small>{{ count }}</small></h2>
+                </div>
+                <div class="col-md-4 col-sm-6">
+                </div>
+                <div class="col-md-4 col-sm-6 text-right">
+                  <button class="btn btn-success btn-lg" style="margin-left: auto" data-toggle="modal" data-target="#addUserModal"><i style="font-size: 2rem" class="bi bi-plus"></i></button>
+                </div>
+            </div>
+
+{% if users %}
+{#      <div class="row">#}
+          <table class="table table-borderless datatable">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Name</th>
+                <th scope="col">Date Joined</th>
+                <th scope="col">Last Login</th>
+                <th scope="col">Status</th>
+                    {% if user_type == 'Vendor' %}
+                <th scope="col">No of Listings</th>
+                <th scope="col">Actions</th>
+                        {% endif %}
+              </tr>
+            </thead>
+            <tbody>
+        {% for user, listing in users.items %}
+                   <tr>
+                        <th scope="row">{{ forloop.counter }}</th>
+                        <td>{{ user.first_name }} {{ user.last_name }}</td>
+                        <td>{{ user.date_joined }}</td>
+                        {% if user.last_login == None %}
+                            <td>Never</td>
+                        {% else %}
+                            <td>{{ user.last_login }}</td>
+                        {% endif %}
+                        <td><span class="badge bg-success">Active</span></td>
+                        {% if user_type == 'Vendor' %}
+                        <td>{{ listing }}</td>
+                        <td>
+                            <a href="#" class="btn btn-sm btn-success">Add Business</a>
+{#                            <a href="#" class="btn btn-sm btn-success">Delete User</a>#}
+                        </td>
+                        {% endif %}
+                   </tr>
+            </tbody>
+        {% endfor %}
+          </table>
+{#      </div>#}
+{% else %}
+  <div class="alert alert-warning">No {{ user_type }} in Database</div>
+  {% endif %}
+        </div>
+        </div>
+  </div><!-- End #main -->
+
+<div id="addUserModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog">
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+
+                <h4 class="modal-title" id="myModalLabel">Add a {{ user_type }}</h4>
+
+            </div>
+
+            <div class="modal-body">
+                <form style="max-width: 615px" class="form-horizontal" role="form" method="post" onsubmit="return verifyPassword(event)">
+
+                    {% csrf_token %}
+                    <!-- Form Group -->
+                    <div class="form-group">
+                        <!-- Label -->
+                        <label for="name" class="col-sm-3 control-label">First Name<span class="text-danger">*</span></label>
+                        <div class="col-sm-9">
+                            <!-- Input -->
+                            <input type="text" name="first_name"  placeholder="First name" class="form-control" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <!-- Label -->
+                        <label for="name" class="col-sm-3 control-label">Last Name<span class="text-danger">*</span></label>
+                        <div class="col-sm-9">
+                            <!-- Input -->
+                            <input type="text" name="last_name" placeholder="Last Name" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <!-- Label -->
+                        <label for="name" class="col-sm-3 control-label">Phone</label>
+                        <div class="col-sm-9">
+                            <!-- Input -->
+                            <input type="text" name="phone" placeholder="Phone Number" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="email" class="col-sm-3 control-label">Email<span class="text-danger">*</span></label>
+                        <div class="col-sm-9">
+                            <input type="email" name="email" placeholder="Email" class="form-control" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="username" class="col-sm-3 control-label">Username<span class="text-danger">*</span></label>
+                        <div class="col-sm-9">
+                            <input type="text" name="username" placeholder="Username" class="form-control" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password" class="col-sm-3 control-label">Password<span class="text-danger">*</span></label>
+                        <div class="col-sm-9">
+                            <input type="password" name="password" placeholder="Password" class="form-control" required id="password1">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password" class="col-sm-3 control-label">Confirm Password <span class="text-danger" id="pswd_error">*</span></label>
+                        <div class="col-sm-9">
+                            <input type="password" name="repassword"  placeholder="Confirm password" class="form-control" required id="password2">
+                        </div>
+                    </div>
+{#                    <div class="form-group">#}
+{#                        <div class="col-sm-offset-3 col-sm-9">#}
+{#                            <!-- Buton -->#}
+{#                            <button type="submit" class="btn btn-red">Add</button>&nbsp;#}
+{#                            <button type="reset" class="btn btn-white">Reset</button>#}
+{#                        </div>#}
+{#                    </div>#}
+
+            </div>
+
+            <div class="modal-footer">
+                    <div class="form-group">
+                        <div class="col-sm-offset-3 col-sm-9">
+                            <!-- Buton -->
+                            <button type="submit" class="btn btn-red">Add</button>&nbsp;
+                            <button type="reset" class="btn btn-white">Reset</button>
+                        </div>
+                    </div>
+
+            </div>
+                </form>
+
+        </div>
+
+    </div>
+</div>
+
+        {% include 'include/footer.html' %}

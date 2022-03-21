@@ -1,0 +1,56 @@
+{% load static %}
+
+{% include 'include/header.html' %}
+<!-- Header two Starts -->
+{% include 'include/nav-bar.html' %}
+  <!-- Page heading two starts -->
+    <div class="page-heading-two">
+        <div class="container">
+            <h2>Anonymous Messages</h2>
+            <div class="breads">
+    {#            Nav ------- Home/category.name #}
+                <a href="{% url 'businessDirectory:home' %}">Home</a> /
+                <a href="{% url 'businessDirectory:user-profile' user_type='vendor' %}">Dashboard</a> / Notifications
+
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+  <div id="main" class="container main">
+
+      <div class="row">
+
+        <!-- Left side columns -->
+      <div class="col-md-9 col-sm-12 col-xs-12">
+        <!-- Listings -->
+            <div class="col-12">
+                {% for message in messages %}
+{#                    <h3>{{ notification.title }}</h3>#}
+{#                    <p>{{ notification.msg }}</p>#}
+                     <div class="row">
+                         <div class="col-md-2 col-xs-12">
+{#                                         user image#}
+                             <i class="bi bi-chat-square-quote-fill" style="font-size: 2rem"></i>
+                         </div>
+                         <div class="col-md-8 col-xs-12">
+                             <h4>Anonymous</h4>
+
+                             <p>{{ message.msg }}
+                        </div> <!-- col -->
+                     <div class="col-md-2">
+                         <button class="btn btn-primary">Mark as Read</button>
+                     </div>
+                     </div> <!-- row -->
+                {% endfor %}
+
+    </div><!-- End Listings -->
+        </div><!-- End Left side columns -->
+        <!-- Right side columns -->
+          <div class="col-md-3 col-sm-12 col-xs-12">
+            {% include 'include/side-bar-auth.html' %}
+          </div><!-- End Right side columns -->
+      </div>
+
+  </div><!-- End #main -->
+
+        {% include 'include/footer.html' %}

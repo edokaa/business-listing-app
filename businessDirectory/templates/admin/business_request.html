@@ -1,0 +1,110 @@
+{% load static %}
+
+{% include 'include/header.html' %}
+<!-- Header two Starts -->
+{% include 'include/nav-bar.html' %}
+  <!-- Page heading two starts -->
+    <div class="page-heading-two">
+        <div class="container">
+           {% if request.user.is_admin %}
+
+            <h2>Business Requests</h2>
+        {% else %}
+            <h2>My Sent Requests</h2>
+        {% endif %}
+            <div class="breads">
+    {#            Nav ------- Home/category.name #}
+                <a href="{% url 'businessDirectory:home' %}">Home</a> /
+                {% if request.user.is_admin %}
+                <a href="{% url 'businessDirectory:admin' %}">Dashboard</a> / Business Requests
+                {% else %}
+                <a href="{% url 'businessDirectory:user-profile' user_type='vendor' %}">Dashboard</a> / My Sent Requests
+                {% endif %}
+
+
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+  <div id="main" class="container main">
+
+      <div class="row">
+
+        <!-- Left side columns -->
+      <div class="col-md-9 col-sm-12 col-xs-12">
+        <!-- Listings -->
+            <div class="col-12">
+      <div class="card recent-sales overflow-auto">
+
+        <div class="card-body">
+                  <h2>Business Requests <small>{{ vendor_requests.count }}</small></h2>
+            {% if vendor_requests %}
+          <table class="table table-borderless datatable">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                  {% if request.user.is_admin %}
+                    <th scope="col">Vendor</th>
+                  {% endif %}
+                <th scope="col">Preferred Name</th>
+                <th scope="col">Category</th>
+                <th scope="col">Campus</th>
+                <th scope="col">Date Sent</th>
+                <th scope="col">Status</th>
+                  {% if request.user.is_admin %}
+                <th scope="col">Action</th>
+                  {% endif %}
+              </tr>
+            </thead>
+            <tbody>
+                {% for vendor_request in vendor_requests %}
+                   <tr>
+                        <th scope="row"><a href="#">{{ forloop.counter }}</a></th>
+                  {% if request.user.is_admin %}
+                        <td>@{{ vendor_request.vendor.username}}</td>
+                   {% endif %}
+                        <td>{{ vendor_request.business_name}}</td>
+                        <td>{{ vendor_request.category}}</td>
+                        <td>{{ vendor_request.campus}}</td>
+                        <td>{{ vendor_request.sent_at}}</td>
+
+                       {% if vendor_request.is_added %}
+                        <td>
+                            <button class="btn btn-success btn-sm"><i class="bi bi-check-lg"></i></button>
+                        </td>
+                           {% else %}
+                           <td>
+                            <button class="btn btn-warning btn-sm"><i class="bi bi-arrow-repeat"></i></button>
+                           </td>
+                       {% endif %}
+                   <td>
+                                     {% if request.user.is_admin %}
+
+                       {% if not vendor_request.is_added %}
+                           <a href="{% url 'businessDirectory:add-request' pk=vendor_request.id %}" class="btn btn-sm btn-primary"><i class="bi bi-plus"></i></a>
+                       {% endif %}
+                        <a href="{% url 'businessDirectory:delete-request' pk=vendor_request.id %}" class="btn btn-sm btn-danger"><i class="bi bi-trash-fill"></i></a></td>
+                   {% endif %}
+                   </tr>
+
+                {% endfor %}
+            </tbody>
+          </table>
+            {% else %}
+                <div class="alert alert-warning">No Vendor Request</div>
+            {% endif %}
+
+        </div>
+
+      </div>
+    </div><!-- End Listings -->
+        </div><!-- End Left side columns -->
+        <!-- Right side columns -->
+          <div class="col-md-3 col-sm-12 col-xs-12">
+            {% include 'include/side-bar-auth.html' %}
+          </div><!-- End Right side columns -->
+      </div>
+
+  </div><!-- End #main -->
+
+        {% include 'include/footer.html' %}

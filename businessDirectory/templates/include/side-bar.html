@@ -1,0 +1,68 @@
+{% load static %}
+
+<div class="sidebar">
+    <div style="clear:both"></div>
+    <div class="s-widget">
+        <!-- Heading -->
+        <h5><i class="fa fa-clock-o color"></i>&nbsp; Recent posts</h5>
+        <!-- Widgets Content -->
+        <div class="widget-content hot-properties">
+            <ul class="list-unstyled">
+                {% for post in recent_posts %}
+                    <li class="col-xs-12 col-sm-6 col-md-12 col-lg-12">
+                    <!-- Image -->
+                    <img class="img-responsive img-thumbnail" src="/{{ post.logo }}" alt="{{ post.name }}" style="height: 75px !important;" />
+                    <!-- Heading -->
+                    <h4><a href="{% url 'businessDirectory:business-details' pk=post.id %}">{{ post.name }}</a></h4>
+                    <!-- Location -->
+                    <div class="price"><strong>Campus</strong>: {{ post.location }}
+{#                        stars #}
+
+{#                        <span class="stars stars-sidebar"><i class="fa fa-star "></i><i class="fa fa-star "></i><i class="fa fa-star "></i><i class="fa fa-star "></i><i class="fa fa-star "></i></span>#}
+                    </div>
+                    <div class="clearfix"></div>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    <div style="clear:both"></div>
+    <div class="s-widget">
+        <!-- Heading -->
+        <h5><i class="fa fa-folder color"></i>&nbsp; Categories</h5>
+        <!-- Widgets Content -->
+
+        <div class="widget-content categories">
+            <ul class="list-6">
+                {% for category,count in categories.items %}
+                    <li class="col-xs-12 col-sm-6 col-md-12 col-lg-12">
+                        <a href="{% url 'businessDirectory:category' pk=category.id %}">
+                            {{ category.name }}
+                            <span class="color">({{ count }})</span>
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    <div style="clear:both"></div>
+    <div class="s-widget">
+        <!-- Heading -->
+        <h5><i class="fa fa-map-marker color"></i>&nbsp;Locations</h5>
+        <!-- Widgets Content -->
+
+        <div class="widget-content categories">
+            <ul class="list-6">
+                {% for campus,count in campuses.items %}
+                    <li class="col-xs-12 col-sm-6 col-md-12 col-lg-12">
+                        <a href="{% url 'businessDirectory:campus-business' pk=campus.id %}">
+                            {{ campus.name }}
+                            <span class="color">({{ count }})</span>
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    <div style="clear:both"></div>
+</div>

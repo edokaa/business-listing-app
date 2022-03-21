@@ -1,0 +1,453 @@
+{% load static %}
+
+{% include 'include/header.html' %}
+{% include 'include/nav-bar.html' %}
+
+
+<link href="{% static 'assets/layerslider/css/layerslider.css' %}" rel="stylesheet">
+<script src="{% static 'assets/layerslider/js/greensock.js' %}" type="text/javascript"></script>
+
+
+<script src="{% static 'assets/layerslider/js/layerslider.transitions.js' %}" type="text/javascript"></script>
+<script src="{% static 'assets/layerslider/js/layerslider.kreaturamedia.jquery.js' %}" type="text/javascript"></script>
+
+<style>
+    #layerslider * {
+        font-family: Lato, 'Open Sans', sans-serif;
+    }
+
+</style>
+
+<div id="layerslider" style="width:100%;height:500px;">
+    <div class="ls-slide" data-ls="transition2d:1;timeshift:-1000;">
+        <img
+            src="{% static 'assets/layerslider/img/fw-1.jpg' %}"
+            class="ls-bg" alt="Slide background edited"
+        />
+        <img
+            alt="slide-image"
+            data-src="{% static 'assets/layerslider/img/food.png' %}"
+            src="{% static 'assets/layerslider/img/food.png' %}"
+            data-ls="offsetxin:0;easingin:easeInOutQuart;scalexin:0.7;scaleyin:0.7;offsetxout:-800;durationout:1000;"
+            style="top: 124px; left: 845.5px;white-space: nowrap;"
+            class="ls-l ls-preloaded"
+        />
+        <p data-ls="durationin:2000;delayin:1500;easingin:easeOutElastic;rotatexin:-90;transformoriginin:50% top 0;durationout:1000;" style="top: 220px; left: 112.5px;font-weight: 300;height:40px;padding-right:10px;padding-left:10px;font-size:30px;line-height:37px;color:#ffffff;background:#82d10c;border-radius:3px;white-space: nowrap;" class="ls-l">LOOKING TO LIST YOUR RESTAURANT</p>
+        <p data-ls="offsetxin:0;durationin:2000;delayin:2000;easingin:easeOutElastic;rotatexin:90;transformoriginin:50% top 0;offsetxout:-400;" style="top: 339px; left: 121.5px; font-family:'Indie Flower';font-size:31px;color:#6db509;white-space: nowrap;" class="ls-l">Lorem Ipsum dolor sit</p>
+        <h1 style="top: 287px; left: 112.5px; font-weight: 900; padding: 0px 20px; font-family: Raleway; font-size: 24px; line-height: 40px; color: rgb(68, 68, 68); background: none repeat scroll 0% 0% rgb(255, 255, 255);white-space: nowrap;" class="ls-l">PIZZA - SUBS - BURGERS - FRIES</h1>
+        <img alt="slide-image" data-src="{% static 'assets/layerslider/img/catering.png' %}" src="{% static 'assets/layerslider/img/catering.png' %}" data-ls="delayin:1000;" style="top: 96px; left: 795.5px;white-space: nowrap;" class="ls-l ls-preloaded">
+        <img class="ls-l ls-linkto-3" style="top:460px;left:610px;white-space: nowrap;" data-ls="offsetxin:-50;delayin:1000;rotatein:-40;offsetxout:-50;rotateout:-40;" src="{% static 'assets/layerslider/img/left.png" alt="slide-image' %}">
+        <img class="ls-l ls-linkto-2" style="top:460px;left:650px;white-space: nowrap;" data-ls="offsetxin:50;delayin:1000;offsetxout:50;" src="{% static 'assets/layerslider/img/right.png" alt="slide-image' %}">
+    </div>
+    <div class="ls-slide" data-ls="transition2d:1;timeshift:-1000;">
+        <img src="{% static 'assets/layerslider/img/fw-1.jpg' %}" class="ls-bg" alt="Slide background"/>
+        <img alt="slide-image" data-src="{% static 'assets/layerslider/img/party_copy.png' %}" src="{% static 'assets/layerslider/img/party_copy.png' %}" data-ls="offsetxin:0;easingin:easeInOutQuart;scalexin:0.7;scaleyin:0.7;offsetxout:-800;durationout:1000;" style="top: 124px; left: 700.5px;white-space: nowrap;" class="ls-l ls-preloaded">
+        <p data-ls="durationin:2000;delayin:1500;easingin:easeOutElastic;rotatexin:-90;transformoriginin:50% top 0;durationout:1000;" style="top: 220px; left: 112.5px;font-weight: 300;height:40px;padding-right:10px;padding-left:10px;font-size:30px;line-height:37px;color:#ffffff;background:#f04705;border-radius:3px;white-space: nowrap;" class="ls-l">YOUR FAVOURITE NIGHTLIFE DESTINATION</p>
+        <p data-ls="offsetxin:0;durationin:2000;delayin:2000;easingin:easeOutElastic;rotatexin:90;transformoriginin:50% top 0;offsetxout:-400;" style="top: 287px; left: 121.5px; font-family:'Indie Flower';font-size:31px;color:#f04705;white-space: nowrap;" class="ls-l">Lorem Ipsum dolor sit</p>
+        <img class="ls-l ls-linkto-1" style="top:460px;left:610px;white-space: nowrap;" data-ls="offsetxin:-50;delayin:1000;rotatein:-40;offsetxout:-50;rotateout:-40;" src="{% static 'assets/layerslider/img/left.png" alt="slide-image' %}">
+        <img class="ls-l ls-linkto-3" style="top:460px;left:650px;white-space: nowrap;" data-ls="offsetxin:50;delayin:1000;offsetxout:50;" src="{% static 'assets/layerslider/img/right.png" alt="slide-image' %}">
+    </div>
+
+    <div class="ls-slide" data-ls="transition2d:1;timeshift:-1000;">
+        <img src="{% static 'assets/layerslider/img/fw-1.jpg" class="ls-bg" alt="Slide background' %}"/>
+        <img class="ls-l" style="top:129px;left:487px;white-space: nowrap;" data-ls="offsetxin:400;durationin:2000;offsetxout:400;" src="{% static 'assets/layerslider/img/d1.png" alt="slide-image' %}">
+        <img class="ls-l" style="top:104px;left:70px;white-space: nowrap;" data-ls="offsetxin:-200;durationin:2000;offsetxout:-200;" src="{% static 'assets/layerslider/img/d2.png" alt="slide-image' %}">
+        <p class="ls-l" style="top:320px;left:830px;font-weight: 300;height:40px;padding-right:10px;padding-left:10px;font-size:30px;line-height:37px;color:#ffffff;background:#544f8c;border-radius:3px;white-space: nowrap;" data-ls="offsetxin:0;durationin:2000;delayin:1500;easingin:easeOutElastic;rotatexin:-90;transformoriginin:50% top 0;offsetxout:-400;durationout:1000;">
+            LIST YOUR LOCAL SHOPS
+        </p>
+        <p class="ls-l" style="top:360px;left:836px;font-family:'Indie Flower';font-size:31px;color:#544f8c;white-space: nowrap;" data-ls="offsetxin:0;durationin:2000;delayin:2000;easingin:easeOutElastic;rotatexin:90;transformoriginin:50% top 0;offsetxout:-600;">
+            loren ipsum
+        </p>
+        <img class="ls-l ls-linkto-2" style="top:430px;left:960px;white-space: nowrap;" data-ls="offsetxin:-50;delayin:1000;offsetxout:-50;" src="{% static 'assets/layerslider/img/left.png" alt="slide-image' %}">
+        <img class="ls-l ls-linkto-1" style="top:430px;left:1000px;white-space: nowrap;" data-ls="offsetxin:50;delayin:1000;offsetxout:50;" src="{% static 'assets/layerslider/img/right.png" alt="slide-image' %}">
+    </div>
+</div>
+</div>
+
+<!-- Initializing the slider -->
+<script>
+    var skins_path = {% static 'assets/layerslider/skins/' %}
+    jQuery("#layerslider").layerSlider({
+        responsive: false,
+        responsiveUnder: 1280,
+        layersContainer: 1280,
+        skin: 'noskin',
+        hoverPrevNext: false,
+        skinsPath: skins_path
+    });
+</script><!-- Main content starts -->
+<div class="main-block">
+    <link href="{% static 'assets/jquery-ui/jquery-ui.css' %}" rel="stylesheet">
+<script src="{% static 'assets/jquery-ui/jquery-ui.js' %}"></script>
+
+<link href="{% static 'assets/css/select2.css' %}" rel="stylesheet">
+<script src="{% static 'assets/js/select2.js' %}"></script>
+<div class="real-estate">
+    <div class="re-big-form">
+        <div class="container">
+            <!-- Nav tab style 2 starts -->
+            <div class="nav-tabs-two buy-sell-tab">
+                <!-- Nav tabs -->
+                <ul class="nav nav-tabs">
+                </ul>
+                <!-- Tab content -->
+                <div class="tab-content">
+                    <div class="tab-pane fade in active" id="tab-1">
+
+{#                        Search Form#}
+                        <form role="form" action="#" method="post">
+                            {% csrf_token %}
+                            <div class="row">
+                                <div class="col-md-4 col-sm-12">
+                                    <div class="form-group">
+                                        <label for="input-11">Select campus</label>
+                                        <select id="input-11" name="city" class="form-control chosen-select">
+                                            <option data-name="" value="any">Any</option>
+                                            <option data-name="unn" class="cities city-50" value="88" >UNN</option>
+                                            <option data-name="unec" class="cities city-14" value="91" >UNEC</option>
+                                        </select>
+                                </div>
+                                </div>
+                                <div class="col-md-4 col-sm-12">
+                                    <div class="form-group">
+                                        <label for="input-14">Select Business Category</label>
+                                        <select id="input-14" name="category" class="form-control chosen-select">
+                                            <option value="any">Any Category</option>
+                                            <option value="10" >--Car Rental</option>
+                                            <option value="11" >--Money Exchange</option>
+                                            <option value="2" >Cyber Cafe</option>
+                                            <option value="3" >Cinemas</option>
+                                            <option value="4" >Hotels & Resorts</option>
+                                            <option value="5" >Libraries</option>
+                                            <option value="6" >Night Clubs</option>
+                                            <option value="7" >Offices</option>
+                                            <option value="8" >Restaurants</option>
+                                            <option value="9" >Shops</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-md-4 col-sm-6">
+                                    <div class="form-group">
+                                        <button type="submit" class="btn btn-color"><i class="fa fa-search"></i>&nbsp; Search Businesses</button>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </form>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- property search big form -->
+<!-- Container -->
+<div class="container main-container">
+
+    <div class="row">
+
+        <div class="col-md-9 col-sm-12 col-xs-12">
+
+            <div class="block-heading-two">
+                <h3><span><i class="fa fa-folder"></i> Categories</span></h3>
+            </div>
+
+            <div class="category-box col-md-4 col-sm-4" style="height: 256px;margin-bottom:30px;">
+                <header class="category-header bg-green clearfix">
+                    <a href="#">
+                    <div class="category-icon"><i class="fa fa-coffee"></i></div>
+                        <div class="category-title">
+                            <h5>Cafe</h5>
+                            <strong class="count">(1)</strong>
+                        </div>
+                    </a>
+                </header>
+                <div class="img-box-6-item category-thumb-img">
+                <!-- Image Box #6 Image -->
+                    <div class="image-style-one">
+                        <!-- Image -->
+{#                        href = category-post #}
+                        <a href="#">
+                        <img src="{% static 'uploads/thumbs/cafe.jpg' %}" alt="Cafe" class="img-responsive">
+                        </a>
+                    </div>
+                </div>
+            </div>
+<div class="category-box col-md-4 col-sm-4" style="height: 256px;margin-bottom:30px;">
+        <header class="category-header bg-orange clearfix">
+        <a href="#">
+            <div class="category-icon"><i class="fa fa-ticket"></i></div>
+            <div class="category-title">
+                <h5>Cinemas</h5>
+                <strong class="count">(1)</strong>
+            </div>
+        </a>
+    </header>
+    <div class="img-box-6-item category-thumb-img">
+        <!-- Image Box #6 Image -->
+        <div class="image-style-one">
+            <!-- Image -->
+            <a href="#">
+            <img src="{% static 'uploads/thumbs/cinemas.jpg' %}" alt="Cinemas" class="img-responsive">
+            </a>
+        </div>
+    </div>
+</div>
+<div class="category-box col-md-4 col-sm-4" style="height: 256px;margin-bottom:30px;">
+        <header class="category-header bg-red clearfix">
+        <a href="#">
+            <div class="category-icon"><i class="fa fa-building-o"></i></div>
+            <div class="category-title">
+                <h5>Hotels & Resorts</h5>
+                <strong class="count">(1)</strong>
+            </div>
+        </a>
+    </header>
+    <div class="img-box-6-item category-thumb-img">
+        <!-- Image Box #6 Image -->
+        <div class="image-style-one">
+            <!-- Image -->
+            <a href="#">
+            <img src="{% static 'uploads/thumbs/resort1.jpg' %}" alt="Hotels & Resorts" class="img-responsive">
+            </a>
+        </div>
+    </div>
+</div>
+<div class="category-box col-md-4 col-sm-4" style="height: 256px;margin-bottom:30px;">
+        <header class="category-header bg-lblue clearfix">
+        <a href="#">
+            <div class="category-icon"><i class="fa fa-book"></i></div>
+            <div class="category-title">
+                <h5>Libraries</h5>
+                <strong class="count">(0)</strong>
+            </div>
+        </a>
+    </header>
+    <div class="img-box-6-item category-thumb-img">
+        <!-- Image Box #6 Image -->
+        <div class="image-style-one">
+            <!-- Image -->
+            <a href="#">
+            <img src="{% static 'uploads/thumbs/library.jpg' %}" alt="Libraries" class="img-responsive">
+            </a>
+        </div>
+    </div>
+</div>
+<div class="category-box col-md-4 col-sm-4" style="height: 256px;margin-bottom:30px;">
+        <header class="category-header bg-green clearfix">
+        <a href="http://localhost/business/en/show/categoryposts/6/Night-Clubs">
+            <div class="category-icon"><i class="fa fa-glass"></i></div>
+            <div class="category-title">
+                <h5>Night Clubs</h5>
+                <strong class="count">(2)</strong>
+            </div>
+        </a>
+    </header>
+    <div class="img-box-6-item category-thumb-img">
+        <!-- Image Box #6 Image -->
+        <div class="image-style-one">
+            <!-- Image -->
+            <a href="#">
+            <img src="{% static 'uploads/thumbs/night_club1.jpg' %}" alt="Night Clubs" class="img-responsive">
+            </a>
+        </div>
+    </div>
+</div>
+<div class="category-box col-md-4 col-sm-4" style="height: 256px;margin-bottom:30px;">
+        <header class="category-header bg-orange clearfix">
+        <a href="http://localhost/business/en/show/categoryposts/7/Offices">
+            <div class="category-icon"><i class="fa fa-briefcase"></i></div>
+            <div class="category-title">
+                <h5>Offices</h5>
+                <strong class="count">(0)</strong>
+            </div>
+        </a>
+    </header>
+    <div class="img-box-6-item category-thumb-img">
+        <!-- Image Box #6 Image -->
+        <div class="image-style-one">
+            <!-- Image -->
+            <a href="#">
+            <img src="{% static 'http://localhost/business/uploads/thumbs/office.png' %}" alt="Offices" class="img-responsive">
+            </a>
+        </div>
+    </div>
+</div>
+<div class="category-box col-md-4 col-sm-4" style="height: 256px;margin-bottom:30px;">
+        <header class="category-header bg-red clearfix">
+        <a href="http://localhost/business/en/show/categoryposts/8/Restaurants">
+            <div class="category-icon"><i class="fa fa-cutlery"></i></div>
+            <div class="category-title">
+                <h5>Restaurants</h5>
+                <strong class="count">(2)</strong>
+            </div>
+        </a>
+    </header>
+    <div class="img-box-6-item category-thumb-img">
+        <!-- Image Box #6 Image -->
+        <div class="image-style-one">
+            <!-- Image -->
+            <a href="#">
+            <img src="{% static 'uploads/thumbs/restaurant.jpg' %}" alt="Restaurants" class="img-responsive">
+            </a>
+        </div>
+    </div>
+</div>
+<div class="category-box col-md-4 col-sm-4" style="height: 256px;margin-bottom:30px;">
+        <header class="category-header bg-lblue clearfix">
+        <a href="http://localhost/business/en/show/categoryposts/9/Shops">
+            <div class="category-icon"><i class="fa fa-shopping-cart"></i></div>
+            <div class="category-title">
+                <h5>Shops</h5>
+                <strong class="count">(1)</strong>
+            </div>
+        </a>
+    </header>
+    <div class="img-box-6-item category-thumb-img">
+        <!-- Image Box #6 Image -->
+        <div class="image-style-one">
+            <!-- Image -->
+            <a href="#">
+            <img src="{% static 'uploads/thumbs/shop.jpg' %}" alt="Shops" class="img-responsive">
+            </a>
+        </div>
+    </div>
+</div>
+<div class="clearfix"></div>
+<!-- full file updated on version 1.5 -->
+
+
+    <div class="clearfix"></div>
+</span>
+
+        </div>
+
+
+        <div class="col-md-3 col-sm-12 col-xs-12">
+            <div class="sidebar">
+                <!-- Search Widget -->
+
+<div class="s-widget">
+    <!-- Heading -->
+    <h5><i class="fa fa-building color"></i>&nbsp; Top Businesses</h5>
+    <!-- Widgets Content -->
+    <div class="widget-content hot-properties">
+                <ul class="list-unstyled">
+                        <li class="col-xs-12 col-sm-6 col-md-12 col-lg-12">
+                <!-- Image -->
+                <a href="#"><img class="img-responsive img-thumbnail" src="{% static 'uploads/thumbs/shop1.jpg' %}" alt="Best Shop" /></a>
+                <!-- Heading -->
+                <h4>Best Shop</h4>
+
+                <div class="price"><strong>City</strong>: Atlanta <span class="stars stars-sidebar"><i class="fa fa-star "></i><i class="fa fa-star "></i><i class="fa fa-star "></i><i class="fa fa-star "></i><i class="fa fa-star "></i></span>                </div>
+
+                <div class="clearfix"></div>
+            </li>
+                        <li class="col-xs-12 col-sm-6 col-md-12 col-lg-12">
+                <!-- Image -->
+                <a href="#"><img class="img-responsive img-thumbnail" src="{% static 'uploads/thumbs/resort11.jpg" alt="Best Resort' %}" /></a>
+                <!-- Heading -->
+                <h4><a href="#">Best Resort</a></h4>
+
+                <div class="price"><strong>City</strong>: Honolulu                                                            <span class="stars stars-sidebar"><i class="fa fa-star "></i><i class="fa fa-star "></i><i class="fa fa-star "></i><i class="fa fa-star "></i><i class="fa fa-star "></i></span>                </div>
+
+                <div class="clearfix"></div>
+            </li>
+                        <li class="col-xs-12 col-sm-6 col-md-12 col-lg-12">
+                <!-- Image -->
+                <a href="#"><img class="img-responsive img-thumbnail" src="{% static 'uploads/thumbs/cafe1.jpg' %}" alt="Hot Cofee" /></a>
+                <!-- Heading -->
+                <h4><a href="#">Hot Cofee</a></h4>
+
+                <div class="price"><strong>City</strong>: Los Angeles                                                            <span class="stars stars-sidebar"><i class="fa fa-star "></i><i class="fa fa-star "></i><i class="fa fa-star "></i><i class="fa fa-star "></i><i class="fa fa-star "></i></span>                </div>
+
+                <div class="clearfix"></div>
+            </li>
+                        <li class="col-xs-12 col-sm-6 col-md-12 col-lg-12">
+                <!-- Image -->
+                <a href="#"><img class="img-responsive img-thumbnail" src="{% static 'uploads/thumbs/air1.jpg' %}" alt="Demo Airport" /></a>
+                <!-- Heading -->
+                <h4><a href="#">Demo Airport</a></h4>
+
+                <div class="price"><strong>City</strong>: San Francisco                                                            <span class="stars stars-sidebar"><i class="fa fa-star "></i><i class="fa fa-star "></i><i class="fa fa-star "></i><i class="fa fa-star "></i><i class="fa fa-star "></i></span>                </div>
+
+                <div class="clearfix"></div>
+            </li>
+                        <li class="col-xs-12 col-sm-6 col-md-12 col-lg-12">
+                <!-- Image -->
+                <a href="#"><img class="img-responsive img-thumbnail" src="{% static 'uploads/thumbs/night_club11.jpg' %}" alt="Aryan Club" /></a>
+                <!-- Heading -->
+                <h4><a href="#">Aryan Club</a></h4>
+
+                <div class="price"><strong>City</strong>: Los Angeles                                                            <span class="stars stars-sidebar"><i class="fa fa-star "></i><i class="fa fa-star "></i><i class="fa fa-star "></i><i class="fa fa-star "></i><i class="fa fa-star "></i></span>                </div>
+
+                <div class="clearfix"></div>
+            </li>
+                    </ul>
+            </div>
+</div>
+<div style="clear:both"></div><div class="s-widget">
+    <!-- Heading -->
+    <h5><i class="fa fa-folder color"></i>&nbsp; Categories</h5>
+    <!-- Widgets Content -->
+
+    <div class="widget-content categories">
+        <ul class="list-6">
+                            <li class="col-xs-12 col-sm-6 col-md-12 col-lg-12"><a href="#">Airport <span class="color">(1)</span></a></li>
+                            <li class="col-xs-12 col-sm-6 col-md-12 col-lg-12"><a href="#">Cafe <span class="color">(1)</span></a></li>
+                            <li class="col-xs-12 col-sm-6 col-md-12 col-lg-12"><a href="http://localhost/business/en/show/categoryposts/3/Cinemas">Cinemas <span class="color">(1)</span></a></li>
+                            <li class="col-xs-12 col-sm-6 col-md-12 col-lg-12"><a href="http://localhost/business/en/show/categoryposts/4/Hotels-and-Resorts">Hotels & Resorts <span class="color">(1)</span></a></li>
+                            <li class="col-xs-12 col-sm-6 col-md-12 col-lg-12"><a href="http://localhost/business/en/show/categoryposts/5/Libraries">Libraries <span class="color">(0)</span></a></li>
+                            <li class="col-xs-12 col-sm-6 col-md-12 col-lg-12"><a href="http://localhost/business/en/show/categoryposts/6/Night-Clubs">Night Clubs <span class="color">(2)</span></a></li>
+                            <li class="col-xs-12 col-sm-6 col-md-12 col-lg-12"><a href="http://localhost/business/en/show/categoryposts/7/Offices">Offices <span class="color">(0)</span></a></li>
+                            <li class="col-xs-12 col-sm-6 col-md-12 col-lg-12"><a href="http://localhost/business/en/show/categoryposts/8/Restaurants">Restaurants <span class="color">(2)</span></a></li>
+                            <li class="col-xs-12 col-sm-6 col-md-12 col-lg-12"><a href="http://localhost/business/en/show/categoryposts/9/Shops">Shops <span class="color">(1)</span></a></li>
+                    </ul>
+    </div>
+</div>
+<div class="clearfix">
+
+<div style="clear:both"></div>
+<span><img class="img-responsive" alt="Ad1" src="http://placehold.it/300x250"></span><div class="s-widget">
+    <!-- Heading -->
+    <h5><i class="fa fa-map-marker color"></i>&nbsp; Top Locations</h5>
+    <!-- Widgets Content -->
+
+    <div class="widget-content categories">
+        <ul class="list-6">
+                            <li class="col-xs-12 col-sm-6 col-md-12 col-lg-12">
+                    <a href="#">
+                    UNN
+                        <span class="color">(2)</span>
+                    </a>
+                </li>
+                            <li class="col-xs-12 col-sm-6 col-md-12 col-lg-12">
+                    <a href="#">
+                    UNEC
+                        <span class="color">(1)</span>
+                    </a>
+                </li>
+                    </ul>
+    </div>
+</div>
+<div style="clear:both"></div>
+
+
+
+
+            </div>
+        </div>
+
+    </div>
+</div>
+</div>
+
+<!-- Main content ends -->
+</div>
+{% include 'include/footer.html' %}

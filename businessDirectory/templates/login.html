@@ -1,0 +1,71 @@
+{% load static %}
+
+{% include 'include/header.html' %}
+
+<!-- Outer Starts -->
+<div class="outer">
+
+<!-- Header two Starts -->
+{% include 'include/nav-bar.html' %}
+
+<div class="page-heading-two">
+    <div class="container">
+        <h2>{{ usertype.upper }} LOGIN</h2>
+        <div class="clearfix"></div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-3"></div>
+ <div class="col-md-6">
+            <!-- Login starts -->
+            <div class="well login-reg-form">
+                <!-- Heading -->
+                <h4>LOGIN TO YOUR ACCOUNT</h4>
+                <hr />
+                <!-- Form -->
+                <form class="form-horizontal" role="form" method="post">
+                    {% csrf_token %}
+                    <!-- Form Group -->
+                    <div class="form-group">
+                        <!-- Label -->
+                        <label for="user" class="col-sm-3 control-label">Username</label>
+                        <div class="col-sm-9">
+                            <!-- Input -->
+                            <input type="text" class="form-control" name="username" placeholder="username">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="password" class="col-sm-3 control-label">Password</label>
+                        <div class="col-sm-9">
+                            <input type="password" class="form-control"  name="password" placeholder="password">
+                        </div>
+                    </div>
+                    {% if error %}
+                    <p class="text-danger"><i class="bi bi-x-circle-fill"></i>{{ error }}</p>
+
+                    {% endif %}
+
+                    <div class="form-group">
+                        <div class="col-sm-offset-3 col-sm-9">
+                            <!-- Button -->
+                            <button type="submit" class="btn btn-red">Login</button>&nbsp;
+                            <button type="submit" class="btn btn-white">Reset</button>
+                        </div>
+                    </div>
+{#                    <div class="col-sm-offset-3 col-sm-9">#}
+{#                        <a href="#" class="black">Forgot password?</a>#}
+{#                        <a href="{% url 'businessDirectory:register' type=usertype %}" class="black">Sign up</a>#}
+{#                    </div>#}
+                </form>
+                <br />
+                <hr />
+            </div>
+            <!-- Login ends -->
+        </div>
+        <div class="col-md-3"></div>
+</div>
+</div>
+
+{% include 'include/footer.html' %}

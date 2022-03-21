@@ -1,0 +1,153 @@
+{% with request.resolver_match.url_name as url_name %}
+
+{% load static %}
+<!-- Header two Starts -->
+<div class="header-2">
+    <!-- Container -->
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3 col-sm-3">
+                <div class="logo">
+                    <h3>
+                        <img src="{% static 'assets/admin/img/logo2.png' %}" alt="">
+                        <a href="{% url 'businessDirectory:home' %}">UNNConnect</a>
+                    </h3>
+                </div>
+            </div>
+            <div class="col-md-9 col-sm-9">
+
+                <!-- Navigation starts.  -->
+                <div class="navy">
+                    <ul class="pull-right">
+                        <li class="{% if url_name == 'home' %}active{% endif %}"><a href="{% url 'businessDirectory:home' %}">Home</a></li>
+                        <li class="{% if url_name == 'business-list' %}active{% endif %}"><a href="{% url 'businessDirectory:business-list' %}">Listings</a></li>
+                        <!-- if logged in -->
+                            {% if request.user.is_authenticated %}
+        {% if request.user.is_vendor %}
+                        <li class="{% if url_name == 'vendor-notification' %}active{% endif %}"><a href="{% url 'businessDirectory:vendor-notification' %}"><i style="font-size: 3rem" class="bi bi-bell"></i></a></li>
+                        <li class="{% if url_name == 'vendor-messages' %}active{% endif %}"><a href="{% url 'businessDirectory:vendor-messages' %}"><i style="font-size: 3rem" class="bi bi-envelope"></i></a></li>
+        {% endif %}
+        <li class="active has-sub">
+            <span class="submenu-button"></span>
+          <a class="dropdown-toggle" href="#" data-toggle="dropdown">
+            <img src="/{{ request.user.photo_url }}" width="30px" height="30px" alt="Profile" class="img-circle">
+            <span class="d-none d-md-block dropdown-toggle ps-2">{{ request.user }}</span>
+          </a><!-- End Profile Iamge Icon -->
+
+          <ul>
+                                {% if not request.user.is_admin %}
+            <li class=" -child">
+                  {% if request.user.is_customer %}
+              <a class="" href="{% url 'businessDirectory:user-profile' user_type='customer' %}">
+                  {% elif request.user.is_vendor %}
+              <a class="" href="{% url 'businessDirectory:user-profile' user_type='vendor' %}">
+              {% endif %}
+                <i class="bi bi-person"></i>
+                <span>My Profile</span>
+              </a>
+            </li>
+              {% if request.user.is_customer %}
+            <li class=" -child">
+              <a class="" href="{% url 'businessDirectory:customer-saved-listings' %}">
+                <i class="bi bi-list-stars"></i>
+                <span>Saved Listings</span>
+              </a>
+            </li>
+              {% elif request.user.is_vendor %}
+                              <li class=" -child">
+              <a class="" href="{% url 'businessDirectory:vendor-listing' %}">
+                <i class="bi bi-list-stars"></i>
+                <span>My Listings</span>
+              </a>
+            </li>
+                              <li class=" -child">
+              <a class="" href="{% url 'businessDirectory:vendor-requests' %}">
+                <i class="bi bi-send"></i>
+                <span>My Sent Requests</span>
+              </a>
+            </li>
+
+              {% endif %}
+          {% else %}
+                                    <li class=" -child">
+              <a class="" href="{% url 'businessDirectory:admin' %}">
+                <i class="bi bi-person-workspace"></i>
+                <span>Dashboard</span>
+              </a>
+            </li>
+                                    <li class=" -child">
+              <a class="" href="{% url 'businessDirectory:users' type='customers' %}">
+                <i class="bi bi-people"></i>
+                <span>Customers</span>
+              </a>
+            </li>
+                                    <li class=" -child">
+              <a class="" href="{% url 'businessDirectory:users' type='vendors' %}">
+                <i class="bi bi-people-fill"></i>
+                <span>Vendors</span>
+              </a>
+            </li>
+                                    <li class=" -child">
+              <a class="" href="{% url 'businessDirectory:admin-listing' %}">
+                <i class="bi bi-cart-check"></i>
+                <span>Listings</span>
+              </a>
+            </li>
+                                    <li class=" -child">
+              <a class="" href="{% url 'businessDirectory:admin-categories' %}">
+                <i class="bi bi-check-square"></i>
+                <span>Business Categories</span>
+              </a>
+            </li>
+                                    <li class=" -child">
+              <a class="" href="{% url 'businessDirectory:vendor-requests' %}">
+                <i class="bi bi-arrow-down-right-square"></i>
+                <span>Business Requests</span>
+              </a>
+            </li>
+{% endif %}
+            <li class=" -child">
+              <a class="" href="{% url 'businessDirectory:logout' %}">
+                <i class="bi bi-box-arrow-right"></i>
+                <span>Sign Out</span>
+              </a>
+            </li>
+
+          </ul><!-- End Profile Dropdown Items -->
+        </li>
+                                {% else %}
+                        <li class="has-sub" >
+                            <span class="submenu-button"></span>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Register</a>
+                            <ul>
+                                <li class=" -child">
+                                    <a class="signup" href="{% url 'businessDirectory:register' type='customer' %}">Customer</a>
+                                </li>
+                                <li class=" -child">
+                                    <a class="signup" href="{% url 'businessDirectory:register' type='vendor' %}">Vendor</a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li class="has-sub" >
+                            <span class="submenu-button"></span>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Login</a>
+                            <ul>
+                                <li class=" -child">
+                                    <a href="{% url 'businessDirectory:login' type='customer' %}">Customer</a>
+                                </li>
+                                <li class=" -child">
+                                    <a href="{% url 'businessDirectory:login' type='vendor' %}">Vendor</a>
+                                </li>
+                            </ul>
+                        </li>
+
+                            {% endif %}
+                    </ul>
+                </div>
+                <!-- Navigation ends -->
+            </div>
+        </div>
+    </div>
+</div>
+{% endwith %}

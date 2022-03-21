@@ -1,0 +1,151 @@
+{% load static %}
+
+{% include 'include/header.html' %}
+<!-- Header two Starts -->
+{% include 'include/nav-bar.html' %}
+
+  <!-- Page heading two starts -->
+    <div class="page-heading-two">
+        <div class="container">
+            <h2>My Profile</h2>
+            <div class="breads">
+    {#            Nav ------- Home/category.name #}
+                <a href="{% url 'businessDirectory:home' %}">Home</a> /
+                {% if request.user.is_customer %}
+                    <a href="{% url 'businessDirectory:user-profile' user_type=user_type %}">Customer</a> / Profile
+                {% elif request.user.is_vendor %}
+                    <a href="{% url 'businessDirectory:user-profile' user_type=user_type %}">Vendor</a> / Profile
+                {% endif %}
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+
+    <div class="container">
+
+      <div class="row p-5">
+        <div class="col-md-4 col-sm-12">
+
+          <div class="card">
+            <div class="card-body profile-card pt-4 d-flex flex-column text-center">
+
+              <img src="/{{ request.user.photo_url }}" alt="Profile" class="rounded-5" width="250px" height="250px">
+              <h2>{{ request.user.first_name }} {{ request.user.last_name }}</h2>
+              <h5>{{ user_type }}</h5>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="col-md-8 col-sm-12">
+                            <div class="nav-tabs-one">
+                        <!-- Nav tabs -->
+                        <ul class="nav nav-tabs">
+                            <li class="active"><a href="#p-nav-1" data-toggle="tab">Overview</a></li>
+                            <li><a href="#p-nav-2" data-toggle="tab">Edit Profile</a></li>
+                            <li class="review-tab"><a href="#p-nav-3" data-toggle="tab">Change Password</a></li>
+                        </ul>
+                        <!-- Tab content -->
+                        <div class="tab-content">
+                            <div class="tab-pane fade in active" id="p-nav-1">
+                                <div class="single-property">
+                  <h5 class="card-title">Profile Details</h5>
+
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4">Username</div>
+                      <div class="col-lg-9 col-md-8"><b>@{{ request.user.username }}</b></div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4">Full Name</div>
+                      <div class="col-lg-9 col-md-8"><b>{{ request.user.first_name }} {{ request.user.last_name }}</b></div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4">Account Type</div>
+                      <div class="col-lg-9 col-md-8"><b>{{ user_type }} Account</b></div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4">Phone Number</div>
+                      <div class="col-lg-9 col-md-8"><b>{{ request.user.phone }}</b></div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4">Email</div>
+                      <div class="col-lg-9 col-md-8"><b>{{ request.user.email }}</b></div>
+                  </div>
+
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="p-nav-2">
+                                <div class="single-property sp-agent">
+                  <form method="post" enctype="multipart/form-data">
+                      {% csrf_token %}
+                    <div class="row mb-3">
+                      <label for="profileImage" class="col-md-4 col-lg-3 col-form-label">Profile Image</label>
+                      <div class="col-md-8 col-lg-9">
+                        <img src="/{{request.user.photo_url}}" alt="Profile" height="200px" width="200px">
+                        <div class="pt-2">
+                            <input type="file" name="photo_url" class="form-control clearablefileinput" id="id_logo">
+{#                          <a href="#" class="btn btn-primary btn-sm" title="Upload new profile image"><i class="bi bi-upload"></i></a>#}
+{#                          <a href="#" class="btn btn-danger btn-sm" title="Remove my profile image"><i class="bi bi-trash"></i></a>#}
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="row mb-3">
+                      <label for="fullName" class="col-md-4 col-lg-3 col-form-label">First Name</label>
+                      <div class="col-md-8 col-lg-9">
+                        <input name="first_name" type="text" class="form-control" id="fullName" value="{{ request.user.first_name }}">
+                      </div>
+                    </div>
+
+                    <div class="row mb-3">
+                      <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Last Name</label>
+                      <div class="col-md-8 col-lg-9">
+                        <input name="last_name" type="text" class="form-control" id="fullName" value="{{ request.user.last_name }}">
+                      </div>
+                    </div>
+
+                    <div class="row mb-3">
+                      <label for="Phone" class="col-md-4 col-lg-3 col-form-label">Phone</label>
+                      <div class="col-md-8 col-lg-9">
+                        <input name="phone" type="text" class="form-control" id="Phone" value="{{request.user.phone}}">
+                      </div>
+                    </div>
+
+                    <div class="row mb-3">
+                      <label for="username" class="col-md-4 col-lg-3 col-form-label">Username</label>
+                      <div class="col-md-8 col-lg-9">
+                        <input name="username" type="text" class="form-control" id="Job" value="@{{ request.user.username }}" readonly>
+                      </div>
+                    </div>
+
+                    <div class="row mb-3">
+                      <label for="Email" class="col-md-4 col-lg-3 col-form-label">Email</label>
+                      <div class="col-md-8 col-lg-9">
+                        <input name="email" type="email" class="form-control" id="Email" value="{{ request.user.email }}" readonly>
+                      </div>
+                    </div>
+
+                    <div class="text-center" style="margin-top: 20px">
+                      <button type="submit" class="btn btn-primary">Save Changes</button>
+                    </div>
+                  </form><!-- End Profile Edit Form -->
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="p-nav-3">
+                                 <span class="review-form-holder"></span>
+                                 <div style="margin-top:20px"></div>
+                                    <h3>Password change</h3>
+                            </div> <!-- End of p-nav-3 -->
+                        </div> <!-- end of tab-content -->
+                    </div> <!-- end of  nav-tabs-one -->
+        </div>
+      </div>
+
+
+</div>
+
+        {% include 'include/footer.html' %}

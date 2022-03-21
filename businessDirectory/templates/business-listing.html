@@ -1,0 +1,84 @@
+{% load static %}
+
+{% include 'include/header.html' %}
+
+<!-- Outer Starts -->
+<div class="outer">
+
+<!-- Header two Starts -->
+{% include 'include/nav-bar.html' %}
+
+    <!-- Page heading two starts -->
+<div class="page-heading-two">
+    <div class="container">
+        <div class="col-md-7">
+        {% if campus and category %}
+            <h2 class="business-title-detail">{{ category }} in {{ campus }}</h2>
+        </div>
+        <div class="col-md-5">
+        <div class="breads">
+            <a href="{% url 'businessDirectory:home' %}">Home</a> / {{ category }} in {{ campus }}
+        </div>
+            {% elif anchor %}
+            <h2 class="business-title-detail">{{ anchor }}</h2>
+        </div>
+        <div class="col-md-5">
+        <div class="breads">
+            <a href="{% url 'businessDirectory:home' %}">Home</a> / Businesses in {{ campus }}
+        </div>
+            {% else %}
+            <h2 class="business-title-detail">Businesses Listing</h2>
+        </div>
+        <div class="col-md-5">
+        <div class="breads">
+            <a href="{% url 'businessDirectory:home' %}">Home</a> / Businesses Listing
+        </div>
+            {% endif %}
+        </div>
+        <div class="clearfix"></div>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+
+        <div class="col-md-9 col-sm-12 col-xs-12 listings">
+            {% if businesses %}
+          <table class="table datatable">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Business Name</th>
+                <th scope="col">Category</th>
+              </tr>
+            </thead>
+            <tbody>
+                {% for business in businesses %}
+                   <tr>
+                        <th scope="row"><a href="#">{{ forloop.counter }}</a></th>
+                        <td>
+                            <h4>
+                                <a href="{% url 'businessDirectory:business-details' pk=business.id %}">
+                                    {{ business.name }}
+                                </a>
+                            </h4>
+                        </td>
+                       <td>{{ business.category }}</td>
+                   </tr>
+
+                {% endfor %}
+
+            {% else %}
+                <div class="alert alert-warning">No Business in database</div>
+            {% endif %}
+            </tbody>
+          </table>
+        </div>
+        <div class="col-md-3 col-sm-12 col-xs-12">
+            {% include 'include/side-bar.html' %}
+        </div>
+    </div>
+</div>
+
+
+</div>
+    {% include 'include/footer.html' %}

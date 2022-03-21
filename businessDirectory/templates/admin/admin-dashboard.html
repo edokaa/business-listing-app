@@ -1,0 +1,128 @@
+{% load static %}
+
+{% include 'include/header.html' %}
+<!-- Header two Starts -->
+{% include 'include/nav-bar.html' %}
+
+  <!-- Page heading two starts -->
+    <div class="page-heading-two">
+        <div class="container">
+            <h2>ADMIN DASHBOARD</h2>
+            <div class="breads">
+    {#            Nav ------- Home/category.name #}
+                <a href="{% url 'businessDirectory:home' %}">Home</a> / Dashboard
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+
+  <div class="container">
+  <div class="row">
+      <div class="col-md-9 col-sm-12 col-xs-12">
+      <div class="row">
+    <!-- Customers Card -->
+    <div class="col-lg-4 col-md-4 col-sm-12">
+      <div class="card info-card sales-card">
+
+        <div class="card-body">
+          <h5 class="card-title">Customers</h5>
+
+          <div class="d-flex align-items-center">
+            <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+              <i style="font-size: 5rem" class="bi bi-people"></i> &nbsp;&nbsp;<span style="font-size: 3rem">{{ customer_count }}</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div><!-- End Customers Card -->
+
+    <!-- Vendors Card -->
+    <div class="col-lg-4 col-md-6 col-sm-12">
+      <div class="card info-card revenue-card">
+
+        <div class="card-body">
+          <h5 class="card-title">Vendors</h5>
+
+          <div class="d-flex align-items-center">
+            <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                <i style="font-size: 5rem" class="bi bi-people-fill"></i> &nbsp;&nbsp;<span style="font-size: 3rem">{{ vendor_count }}</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div><!-- End Vendors Card -->
+
+    <!-- Businesses Card -->
+    <div class="col-lg-4 col-md-6 col-sm-12">
+
+      <div class="card info-card customers-card">
+
+        <div class="card-body">
+          <h5 class="card-title">Businesses</h5>
+
+          <div class="d-flex align-items-center">
+            <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                <i style="font-size: 5rem" class="bi bi-cart-check"></i> &nbsp;&nbsp;<span style="font-size: 3rem">{{ business_count }}</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div><!-- End Businesses Card -->
+
+        <div class="clearfix"></div>
+    <!-- Recent Listings -->
+    <div class="col-md-12" style="margin-top: 30px">
+      <div class="card recent-sales overflow-auto">
+        <div class="card-body">
+          <h4 class="">Recent Listings</h4>
+        <div class="clearfix"></div>
+
+          <table class="table table-borderless datatable">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Vendor</th>
+                <th scope="col">Business Name</th>
+                <th scope="col">Campus</th>
+                <th scope="col"></th>
+              </tr>
+            </thead>
+            <tbody>
+            {% if businesses %}
+                {% for business in businesses %}
+                   <tr>
+                        <th scope="row"><a href="#">{{ forloop.counter }}</a></th>
+                        <td>{{ business.owner}}</td>
+                        <td><a href="#" class="text-primary">{{ business.name }}</a></td>
+                        <td>{{ business.location }}</td>
+                        <td><span class="badge btn-success">Active</span></td>
+                   </tr>
+
+                {% endfor %}
+            {% else %}
+                <div class="alert alert-warning">No Business in database</div>
+            {% endif %}
+            </tbody>
+          </table>
+
+        </div>
+
+      </div>
+    </div><!-- End Recent Listings -->
+      </div>
+      </div>
+        <!-- Right side columns -->
+          <div class="col-md-3 col-sm-12 col-xs-12">
+
+            {% include 'include/side-bar-auth.html' %}
+      </div>
+
+  </div>
+  </div>
+{#{% include 'admin/include/footer.html' %}#}
+
+        {% include 'include/footer.html' %}

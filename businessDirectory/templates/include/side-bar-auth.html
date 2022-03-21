@@ -1,0 +1,35 @@
+{% load static %}
+{% block content %}
+      <!-- Business Categories -->
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Listings Categories <span>{{ category_count }}</span></h5>
+            <div class="widget-content categories">
+                <ul class="list-6">
+                    {% for category,count in categories.items %}
+                        <li class="col-xs-12 col-sm-6 col-md-12 col-lg-12">
+                            <a href="{% url 'businessDirectory:category' pk=category.id %}">
+                                {{ category.name }}
+                                <small class="color">({{ count }})</small>
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+           </div>
+
+
+        </div>
+      </div><!-- End Recent Activity -->
+
+      <!-- Locations -->
+      <div class="card">
+        <div class="card-body pb-0">
+          <h5 class="card-title">Locations <span>{{ campus_count }}</span></h5>
+            <ul class="list-6">
+                {% for campus, count in campuses.items %}
+                    <li>{{ campus }} <span>{{ count }}</span></li>
+                {% endfor %}
+            </ul>
+        </div>
+      </div><!-- End Budget Report -->
+{% endblock %}

@@ -1,0 +1,46 @@
+{% load static %}
+
+{% include 'include/header.html' %}
+
+<!-- Header two Starts -->
+{% include 'include/nav-bar.html' %}
+
+<!-- Page heading two starts -->
+<div class="page-heading-two">
+    <div class="container">
+        <h2>{{ category.name}} Category ({{ businesses.count }})</h2>
+        <div class="breads">
+{#            Nav ------- Home/category.name #}
+            <a href="{% url 'businessDirectory:home' %}">Home</a> / Category
+        </div>
+        <div class="clearfix"></div>
+    </div>
+</div>
+
+<!-- Container -->
+<div class="container">
+
+    <div class="row">
+
+        <div class="col-md-9 col-sm-12 col-xs-12">
+            {% if businesses %}
+                {% for business in businesses %}
+                    <h4><a href="{% url 'businessDirectory:business-details' pk=business.id %}"><i class="fa fa-plane color"></i> {{ business.name }}</a></h4>
+                    <div class="divider-5"></div>
+                    <div class="clearfix"></div>
+
+                {% endfor %}
+
+            {% else %}
+                <div class="alert alert-warning">No Business found for this category</div>
+            {% endif %}
+            <div class="clearfix"></div>
+        </div>
+        <div class="col-md-3 col-sm-12 col-xs-12">
+            {% include 'include/side-bar.html' %}
+        </div>
+
+    </div>
+</div>
+
+{% include 'include/footer.html' %}

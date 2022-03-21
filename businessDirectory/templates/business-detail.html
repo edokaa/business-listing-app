@@ -1,0 +1,645 @@
+{% load static %}
+
+{% include 'include/header.html' %}
+
+<!-- Outer Starts -->
+<div class="outer">
+
+    <!-- Header two Starts -->
+    {% include 'include/nav-bar.html' %}
+
+    <link href="{% static 'assets/css/lightGallery.css' %}" rel="stylesheet">
+
+    <!-- Page heading two starts -->
+    <script src="{% static 'assets/js/jquery.lightSlider.min.js' %}"></script>
+    <script src="{% static 'assets/js/lightGallery.min.js' %}"></script>
+
+    <style>
+
+        #details-map img { max-width: none; }
+        .stButton .stFb, .stButton .stTwbutton, .stButton .stMainServices{
+            height: 23px;
+        }
+        .stButton .stButton_gradient{
+            height: 23px;
+        }
+        .map-wrapper{
+            background: none repeat scroll 0 0 #f5f5f5;
+            position: relative;
+        }
+        .map-wrapper #map_canvas_wrapper {
+            overflow: hidden;
+        }
+        #map_street_view {
+            height: 487px;
+            width: 100%;
+        }
+    </style>
+
+    {# MAP scripts #}
+    <script async src="https://maps.googleapis.com/maps/api/js?key={{ api_key }}&callback=initMap">
+</script>
+
+    <script>
+        let map;
+
+function initMap() {
+        var mapOptions = {
+            center: { lat: {{business.latitude}}, lng: {{business.longitude}} },
+            zoom: 15,
+        }
+  map = new google.maps.Map(document.getElementById("details-map"), mapOptions)
+    const marker = new google.maps.Marker({
+        position: {
+            lat: {{business.latitude}},
+            lng: {{ business.longitude }}
+        },
+        map:map,
+    });
+}
+    </script>
+
+{# end of map scripts #}
+
+    <!-- Page heading two starts -->
+    <div class="page-heading-two">
+        <div class="container">
+            <div class="col-md-7">
+                    <span class="business-logo-detail">
+                        <img src="/{{ business.logo }}" class="pull-left rounded-3" width="100px" height="100px" />
+                    </span>
+            <h2 class="business-title-detail">{{ business.name }}<span> {{business.category}}</span></h2>
+
+
+
+            </div>
+            <div class="col-md-5">
+            <div class="breads">
+                <a href="{% url 'businessDirectory:home' %}">Home</a> / Business Details
+            </div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+    <!-- Page heading two ends -->
+    <div class="container real-estate" style="padding-top: 10px">
+        <!-- Actual content -->
+        <div class="rs-property">
+            <div class="row">
+                <div class="col-md-9 col-sm-12 col-xs-12">
+    {#                description#}
+                    <div class="card">
+                        <div class="card-body">
+                          <h4 class="card-title">About {{ business.name }}</h4>
+                            <hr>
+                            <div class="widget-content categories">
+                                <h6>{{ business.description }}</h6>
+                                <h6>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A accusamus accusantium adipisci
+                                    asperiores cumque deserunt distinctio excepturi illo
+                                    itaque laborum maxime molestias, nulla officiis omnis pariatur quod sint totam voluptates.</h6>
+                            </div>
+                            <br>
+                        </div>
+                    </div><!-- End Description card -->
+
+                    <!-- Nav tab style 1 starts -->
+                    <div class="nav-tabs-one">
+                        <!-- Nav tabs -->
+                        <ul class="nav nav-tabs">
+                            <li class="active"><a href="#p-nav-1" data-toggle="tab">Details</a></li>
+                            <li><a href="#p-nav-2" data-toggle="tab">Contact</a></li>
+                            <li class="review-tab"><a href="#p-nav-3" data-toggle="tab">Review</a></li>
+                        </ul>
+                        <!-- Tab content -->
+                        <div class="tab-content">
+                            <div class="tab-pane fade in active" id="p-nav-1">
+                                <div class="single-property">
+                                    <div class="detail-slider">
+                                        <ul id="imageGallery">
+                                        {% if images %}
+                                            {% for image in images %}
+                                                <li data-thumb="/{{image.image_url}}" data-src="/{{image.image_url}}">
+                                                    <span class="helper"></span><img src="/{{image.image_url}}" />
+                                               </li>
+
+                                            {% endfor %}
+                                        {% else %}
+                                            <li data-thumb="{% static 'uploads/images/no-image.png' %}" data-src="{% static 'uploads/images/no-image.png' %}">
+                                                <span class="helper"></span><img src="{% static 'uploads/images/no-image.png' %}" />
+                                            </li>
+                                        {% endif %}
+                                        </ul>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                    <hr />
+                                    <div class="info-box">
+                                        <i class="fa fa-plane bg-red category"></i>
+                                        <div class="sub-cat">
+                                            <a href="{% url 'businessDirectory:category' pk=business.category.id%}">{{business.name}}</a>
+                                        </div>
+                                        <div class="ad-detail-info">
+                                            <span class="span-left"><i class="fa fa-clock-o clock-icon"></i>Added :</span>
+                                            <span class="span-right">{{ business.added_on }}</span>
+                                        </div>
+                                        <div class="ad-detail-info">
+                                            <span class="span-left"><i class="fa fa-map-marker location-icon"></i>Campus</span>
+                                            <span class="span-right">{{business.location}}</span>
+                                        </div>
+                                        <div class="ad-detail-info">
+                                            <span class="span-left"><i class="fa fa-envelope price-icon"></i>Email:</span>
+                                            <span class="span-right">
+                                                    <a href="mailto:{{business.name}}" target="_top">{{business.email}}</a>
+                                            </span>
+                                        </div>
+                                        {#if business has website#}
+                                        <div class="ad-detail-info">
+                                            <span class="span-left"><i class="fa fa-link bg-lblue"></i>Website:</span>
+
+                                            <span class="span-right">
+                                                    <a href="#" target="_blank">{{ business.website }}</a>
+                                            </span>
+                                        </div>
+
+
+    {#                                    business phone #}
+                                        <div class="ad-detail-info">
+                                            <span class="span-left"><i class="fa fa-phone phone-icon"></i> Phone:</span>
+
+                                            <span class="span-right">
+                                                    {{business.phone}}
+                                            </span>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                        <!-- heading -->
+                                        <h4 class="info-subtitle"><i class="fa fa-rocket"></i> Details</h4>
+
+                                        <!-- paragraph -->
+        {#                                    business description#}
+                                        <p>{{ business.description }}</p>
+                                        <hr />
+                                        <div class="clearfix"></div>
+
+                                        <h4 class="info-subtitle"><i class="fa fa-list-ul"></i> Opening Hours </h4>
+                                        <div class="alert alert-success">Open 24/7</div>
+                                            <div class="clearfix"></div>
+                                        <!-- end -->
+
+                                        <div id="ad-address"><span>{{business.address}}</span></div>
+
+                                        <h4 class="info-subtitle"><i class="fa fa-map-marker"></i> Location on Map</h4>
+                                        <div class="gmap" id="details-map"></div>
+                                        <div class="clearfix"></div>
+{#                                        <a href="javascript:void(0);" onclick="" class="pull-right btn btn-info" style="width:100%">Get Directions</a>#}
+{#                                        <div class="clearfix"></div>#}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="p-nav-2">
+                                <div class="single-property sp-agent">
+                                    <div class="clearfix"></div>
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered">
+                                            <tr>
+                                                <th>Address</th>
+                                                <td>{{business.address}}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Email</th>
+    {#                                            {{business.email}}#}
+                                                <td>{{ business.email }}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Phone</th>
+                                                <td>{{business.owner.phone}}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Website</th>
+    {#                                            {{business.website}}#}
+                                                <td>{{ business.website }}</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                    <div class="rs-enquiry">
+    {#                                    message form#}
+                                            <div class="row mb-3">
+                                              <h5 for="message" class="col-md-4 col-lg-3 col-form-label">Send an Anonmous Message</h5>
+                                              <div class="col-md-8 col-lg-9">
+                                    {% if request.user.is_customer %}
+                                        <form method="post">
+                                            {% csrf_token %}
+                                                  <textarea name="message" type="text" class="form-control" style="height: 100px" placeholder="Leave us your opinion..."></textarea>
+                                                  <br>
+                                                  <div class="text-center mt-4">
+                                                      <button type="submit" class="btn btn-success" value="save"><i class="bi bi-send-fill"></i></button>
+                                                    </div>
+                                        </form>
+                                        {% else %}
+                                        <div class="alert alert-danger">You have to be a Customer to message this business!</div>
+                                    {% endif %}
+                                              </div>
+                                            </div>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="p-nav-3">
+                                 <span class="review-form-holder"></span>
+                                 <div style="margin-top:20px"></div>
+                                 <h4 class="info-subtitle"><i class="fa fa-rocket"></i>Reviews <small>({{ reviews.count }})</small></h4>
+                                 {% if reviews %}
+                                     <div id="reviews-holder" class="team-two">
+                                         {% for review in reviews %}
+                                             {% if review.star < 3 %}
+                                                <div class="alert alert-danger">
+                                             {% elif review.star == 3 %}
+                                                <div class="alert alert-warning">
+                                             {% elif review.star > 3 %}
+                                                <div class="alert alert-success">
+                                             {% endif %}
+{#                           {% comment %}#}
+                                                 <div class="row">
+                                                     <div class="col-md-2 col-xs-12">
+                {#                                         user image#}
+                                                         <a href="#">
+                                                             <img alt="user-image" src="/{{ review.customer.photo_url }}" class="img-responsive user-img">
+                                                         </a>
+                                                     </div>
+                                                     <div class="col-md-10 col-xs-12">
+                                                         {% if review.star == 0 %}
+                                                            <ul class="stars" style="padding: 0 !important; margin: 0 !important;">
+                                                                <li class="star-5 fa fa-star"></li>
+                                                                <li class="star-5 fa fa-star"></li>
+                                                                <li class="star-5 fa fa-star"></li>
+                                                                <li class="star-5 fa fa-star"></li>
+                                                                <li class="star-5 fa fa-star"></li>
+                                                            </ul>
+                                                         {% elif review.star == 1 %}
+                                                            <ul class="stars" style="padding: 0 !important; margin: 0 !important;">
+                                                                <li class="star-1 fa fa-star active"></li>
+                                                                <li class="star-2 fa fa-star"></li>
+                                                                <li class="star-3 fa fa-star"></li>
+                                                                <li class="star-4 fa fa-star"></li>
+                                                                <li class="star-5 fa fa-star"></li>
+                                                            </ul>
+                                                         {% elif review.star == 2 %}
+                                                            <ul class="stars" style="padding: 0 !important; margin: 0 !important;">
+                                                                <li class="star-1 fa fa-star active"></li>
+                                                                <li class="star-2 fa fa-star active"></li>
+                                                                <li class="star-3 fa fa-star"></li>
+                                                                <li class="star-4 fa fa-star"></li>
+                                                                <li class="star-5 fa fa-star"></li>
+                                                            </ul>
+                                                         {% elif review.star == 3 %}
+                                                            <ul class="stars" style="padding: 0 !important; margin: 0 !important;">
+                                                                <li class="star-1 fa fa-star active"></li>
+                                                                <li class="star-2 fa fa-star active"></li>
+                                                                <li class="star-3 fa fa-star active"></li>
+                                                                <li class="star-4 fa fa-star"></li>
+                                                                <li class="star-5 fa fa-star"></li>
+                                                            </ul>
+                                                         {% elif review.star == 4 %}
+                                                            <ul class="stars" style="padding: 0 !important; margin: 0 !important;">
+                                                                <li class="star-1 fa fa-star active"></li>
+                                                                <li class="star-2 fa fa-star active"></li>
+                                                                <li class="star-3 fa fa-star active"></li>
+                                                                <li class="star-4 fa fa-star active"></li>
+                                                                <li class="star-5 fa fa-star"></li>
+                                                            </ul>
+                                                         {% elif review.star == 5 %}
+                                                            <ul class="stars" style="padding: 0 !important; margin: 0 !important;">
+                                                                <li class="star-1 fa fa-star active"></li>
+                                                                <li class="star-2 fa fa-star active"></li>
+                                                                <li class="star-3 fa fa-star active"></li>
+                                                                <li class="star-4 fa fa-star active"></li>
+                                                                <li class="star-5 fa fa-star active"></li>
+                                                            </ul>
+                                                         {% endif %}
+                                                         <h4>{{ review.customer.first_name }} {{ review.customer.last_name }} <small>{{ review.created_at }}</small></h4>
+                                                         <i class="bi bi-chat-square-quote-fill" style="font-size: 2rem"></i>&nbsp; {{ review.msg }}
+                                                    </div> <!-- col -->
+                                                 </div> <!-- row -->
+                                              </div> <!-- alert -->
+                                             <hr>
+                                            {% endfor %}
+                                        </div>
+                                 {% else %}
+                                     <div class="alert alert-warning">No Reviews on this business yet</div>
+                                 {% endif %}
+{#                            {% endcomment %}#}
+                                {% if request.user.is_customer %}
+        {#                         Add Review #}
+                                 <div class="text-center">
+                                     <form method="post">
+                                         {% csrf_token %}
+                                         <button type="button" class="btn btn-success review-detail" data-toggle="modal" data-target="#reviewModal">Add Review</button>
+                                         <button type="submit" name="saved_listing" class="btn btn-warning">Add to Saved Listings</button>
+                                     </form>
+                                 </div>
+                                {% endif %}
+                            </div> <!-- End of p-nav-3 -->
+                        </div> <!-- end of tab-content -->
+                    </div> <!-- end of  nav-tabs-one -->
+                </div> <!-- end of col-md-9 -->
+                <div class="col-md-3 col-sm-12 col-xs-12">
+                    {% include 'include/side-bar.html' %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    </div>
+</div>
+<div id="reviewModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+
+    <div class="modal-dialog">
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+
+                <h4 class="modal-title" id="myModalLabel">Review</h4>
+
+            </div>
+                    <form id="review-form" method="post" role="form">
+
+            <div class="modal-body">
+                <div class="review-panel">
+                        {% csrf_token %}
+{#                        <input type="hidden" value="{{ business.id }}" name="post_id">#}
+{##}
+                        <div class="form-group">
+                            <label for="enquiryInput3">Rating : </label>
+                            <div class="clearfix"></div>
+                            <input type="hidden" class="form-control" id="rating" name="rating" value=0>
+                            <ul class="rating-input stars">
+                                <li class="star-1 fa fa-star" star=1></li>
+                                <li class="star-2 fa fa-star" star=2></li>
+                                <li class="star-3 fa fa-star" star=3></li>
+                                <li class="star-4 fa fa-star" star=4></li>
+                                <li class="star-5 fa fa-star" star=5></li>
+                            </ul>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="enquiryInput4">Comment</label>
+                            <textarea class="form-control" id="comment" name="comment" placeholder="comment" rows="7" required></textarea>
+                        </div>
+                        <div class="clear-top-margin"></div>
+                </div>
+
+            </div>
+
+            <div class="modal-footer">
+        <button type="submit" class="btn btn-color">Submit Review</button> &nbsp; <button type="submit" class="btn btn-white">Reset</button>
+
+            </div>
+                    </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script src="{% static 'assets/js/markercluster.min.js' %}"></script>
+<script src="{% static 'assets/js/map-icons.min.js' %}"></script>
+<script src="{% static 'assets/js/map_config.js' %}"></script>
+
+{#Rating Select Script#}
+<script>
+        jQuery(document).ready(function(){
+        jQuery('.rating-input > li').hover(function(e){
+            e.preventDefault();
+            var curr_li = parseInt(jQuery(this).attr('star'));
+            jQuery('#rating').val(curr_li);
+
+            jQuery('.rating-input > li').each(function(){
+                if(parseInt(jQuery(this).attr('star'))<=curr_li)
+                {
+                    jQuery(this).addClass('active');
+                }
+                else
+                {
+                    jQuery(this).removeClass('active');
+                }
+            });
+        });
+    });
+
+</script>
+{#End of rating select script#}
+
+{# Mini Gallery script #}
+<script type="text/javascript">
+
+    $(document).ready(function() {
+
+
+
+
+        var rtl = false;
+
+        $('#imageGallery').lightSlider({
+            gallery:false,
+            item:1,
+            speed:1000,
+            pause:3000,
+            rtl:rtl,
+            auto:true,
+            loop: true,
+            thumbItem:9,
+            slideMargin:0,
+            currentPagerPosition:'left',
+            onSliderLoad: function(plugin) {
+                plugin.lightGallery();
+
+            }
+        });
+    });
+</script>
+{# end of mini gallery script #}
+
+{% comment %}
+
+<script type="text/javascript">
+
+    var myLatitude = parseFloat({{business.latitude}});
+
+    var myLongitude = parseFloat({{business.longitute}});
+
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+
+
+    function initialize() {
+
+        directionsDisplay = new google.maps.DirectionsRenderer();
+
+        var zoomLevel = 15;
+
+        var myLatlng = new google.maps.LatLng(myLatitude,myLongitude);
+        {#var map_data = <?php echo get_business_map_data_single($post); ?>;#}
+
+        var mapOptions = {
+            scrollwheel: false,
+            zoom: zoomLevel,
+            center: myLatlng,
+            mapTypeControl: true,
+            mapTypeControlOptions: {
+                style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR,
+                position: google.maps.ControlPosition.RIGHT_BOTTOM
+            },
+            zoomControl: true,
+            zoomControlOptions: {
+                style: google.maps.ZoomControlStyle.SMALL,
+                position: google.maps.ControlPosition.RIGHT_CENTER
+            },
+            panControl: true,
+            panControlOptions: {
+                position: google.maps.ControlPosition.RIGHT_TOP
+            },
+            mapTypeId: google.maps.MapTypeId.ROADMAP,
+            styles: MAP_STYLE
+        }
+        map = new google.maps.Map(document.getElementById('details-map'), mapOptions);
+
+         directionsDisplay.setMap(map);
+
+        var contentString = '<div class="clearfix"></div><div class="img-box-4 text-center map-grid"><div class="img-box-4-item"><div class="image-style-one"><img class="img-responsive" alt="" src="'+ map_data.posts[0].featured_image_url + '"></div>'
+            + '<div class="img-box-4-content"><h4 class="item-title"><a href="'+ map_data.posts[0].detail_link + '">'+ map_data.posts[0].post_title + '</a></h4><div class="bor bg-red"></div><div class="row"><div class="info-dta info-price">'
+            + map_data.posts[0].price + '</div></div><div class="row"><div class="info-dta info-price">'+ map_data.posts[0].post_short_address + '</div></div>' + '</div></div></div>';
+
+
+        var contentString = '{{ business.name }}';
+
+        var infowindow = new google.maps.InfoWindow({
+
+            content: contentString
+
+        });
+
+        var marker, i;
+
+        var markers = [];
+
+        marker = new Marker({
+
+            position: myLatlng,
+
+            map: map,
+
+            title: {{business.name}},
+            zIndex: 9,
+            icon: {
+                path: SQUARE_PIN,
+                fillColor: '#ed5441',
+                fillOpacity: 1,
+                strokeColor: '',
+                strokeWeight: 0,
+                scale: 1/3
+            },
+            label: '<i class="fa fa-location-arrow"></i>'
+
+
+        });
+
+        google.maps.event.addListener(marker, 'click', (function(marker, i) {
+
+            return function() {
+
+                infowindow.open(map, marker);
+
+            }
+
+        })(marker, i));
+
+        markers.push(marker);
+
+        if (window.location.href.indexOf("#review") > -1) {
+            jQuery('.review-tab a').trigger('click');
+        }
+
+    }
+
+    // added on version 1.5
+    var isChrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
+    {#var isSsl = '<?php echo $isSsl;?>';#}
+
+    function calcRoute() {
+
+        {#if(isChrome==true && isSsl==0)#}
+        if(isChrome==true)
+        {
+            {#var r = confirm("<?php echo lang_key('location_chorome_msg')?>");#}
+            {#if(r==true)#}
+            {#{#}
+                $.get("//ipinfo.io", function(response) {
+                var arr = response.loc.split(",");
+
+                        var lat = arr[0];
+                        var lng = arr[1];
+
+
+                        var geolocate = new google.maps.LatLng(lat, lng);
+
+                        var start = geolocate;
+                        var end = new google.maps.LatLng(myLatitude,myLongitude);
+                        var request = {
+                            origin:start,
+                            destination:end,
+                            travelMode: google.maps.TravelMode.DRIVING
+                        };
+                        directionsService.route(request, function(response, status) {
+                            if (status == google.maps.DirectionsStatus.OK) {
+                                directionsDisplay.setDirections(response);
+                            }
+                        });
+
+
+                }, "jsonp");
+
+        }
+        else
+        {
+            if(!!navigator.geolocation) {
+
+                navigator.geolocation.getCurrentPosition(function(position) {
+
+                    var geolocate = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+
+                    var start = geolocate;
+                    var end = new google.maps.LatLng(myLatitude,myLongitude);
+                    var request = {
+                        origin:start,
+                        destination:end,
+                        travelMode: google.maps.TravelMode.DRIVING
+                    };
+                    directionsService.route(request, function(response, status) {
+                        if (status == google.maps.DirectionsStatus.OK) {
+                            directionsDisplay.setDirections(response);
+                        }
+                    });
+
+
+                });
+
+            } else {
+                alert('No Geolocation Support.');
+            }
+        }
+
+
+
+    }
+    //end
+    google.maps.event.addDomListener(window, 'load', initialize);
+</script>
+{% endcomment %}
+
+<!-- Main content ends -->
+
+
+
+        {% include 'include/footer.html' %}

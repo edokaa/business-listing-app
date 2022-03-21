@@ -1,0 +1,68 @@
+{% load static %}
+
+{% include 'include/header.html' %}
+
+<!-- Outer Starts -->
+<div class="outer">
+
+<!-- Header two Starts -->
+{% include 'include/nav-bar.html' %}
+    <link href="{% static 'assets/css/bootstrap.min.css' %}" rel="stylesheet">
+
+<!-- Page heading two starts -->
+<div class="page-heading-two">
+    <div class="container">
+        <h2>My Saved Listings <small>({{ count }})</small></h2>
+        <div class="breads">
+{#            Nav ------- Home/category.name #}
+            <a href="{% url 'businessDirectory:home' %}">Home</a> / Customer / Saved Listings
+        </div>
+        <div class="clearfix"></div>
+    </div>
+</div>
+    <div class="container">
+        <div class="row">
+
+        {% if listings %}
+        <div class="widget-content hot-properties">
+            <ul class="list-unstyled text-center">
+                {% for listing in listings %}
+                    <form method="post" action="{% url 'businessDirectory:customer-delete-saved-listings' pk=listing.id %}">
+                    {% csrf_token %}
+                        <li class="col-xs-12 col-sm-6 col-md-4">
+                        <!-- Image -->
+                        <img class="img-responsive img-thumbnail" src="/{{ listing.business.logo }}" alt="{{ listing.business.name }}" width="300px" height="300px" />
+                        <!-- Heading -->
+                            <h4><a href="{% url 'businessDirectory:business-details' pk=listing.business.id %}">{{ listing.business.name }},</a> <small>{{ listing.business.location }}</small></h4>
+                        <!-- Location -->
+                            <button type="submit" class="btn btn-danger"><i style="font-size: 2rem" class="fa fa-trash"></i></button>
+                        <div class="clearfix"></div>
+                        </li>
+
+                    </form>
+                {% endfor %}
+            </ul>
+        </div>
+{#            {% for listing in listings %}#}
+{##}
+{##}
+{#            <div class="col-lg-3" style="border: 1px solid #000; height: 300px">#}
+{##}
+{#                <div class="card p-5" style="width: 18rem;">#}
+{#                  <img src="/{{listing.business.logo}}" class="card-img-top" alt="img" width="100px" height="100px">#}
+{#                  <div class="card-body">#}
+{#                    <h5 class="card-title">{{ listing.business.name }}</h5>#}
+{#                    <p class="card-text">{{ listing.business.description }}</p>#}
+{#                    <a href="{% url 'businessDirectory:business-details' pk=listing.business.id %}" class="btn btn-primary">View Details</a>#}
+{#                      <button class="btn btn-sm btn-danger">Remove Listing</button>#}
+{#                  </div>#}
+{#                </div>#}
+{#            </div>#}
+{#            {% endfor %}#}
+        {% else %}
+            <div class="alert alert-warning">You have no saved listing</div>
+        {% endif %}
+        </div>
+    </div>
+</div>
+{% include 'include/footer.html' %}
