@@ -2316,26 +2316,6 @@ body.boxed.pattern-5 {
     background: url("../../img/body/pattern/5.png") #fff
 }
 
-body.boxed.img-1 {
-    background: url("../../img/body/img/1.jpg") 0 0/cover fixed #fff
-}
-
-body.boxed.img-2 {
-    background: url("../../img/body/img/2.jpg") 0 0/cover fixed #fff
-}
-
-body.boxed.img-3 {
-    background: url("../../img/body/img/3.jpg") 0 0/cover fixed #fff
-}
-
-body.boxed.img-4 {
-    background: url("../../img/body/img/4.jpg") 0 0/cover fixed #fff
-}
-
-body.boxed.img-5 {
-    background: url("../../img/body/img/5.jpg") 0 0/cover fixed #fff
-}
-
 .outer {
     background: #fff
 }

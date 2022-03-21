@@ -604,11 +604,6 @@ blockquote.blockquote-reverse {
 .ecom-ui-six:hover {
   border-color: #32c8de;
 }
-/* Wedding */
-.wedding-header {
-  background: #32c8de url("../../img/wedding/overlay.png") repeat;
-  background-size: 252px 230px;
-}
 /* Restaurant */
 .restaurant .rest-item:hover {
   border-color: #32c8de;
