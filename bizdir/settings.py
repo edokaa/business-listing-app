@@ -131,6 +131,6 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'businessDirectory/static'),
 )
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 AUTH_USER_MODEL = 'businessDirectory.User'
