@@ -27,9 +27,13 @@ SECRET_KEY = '=+2v!@k5ioj_mdvjbd_ahoq35k-#klgfur3zhgb$ymfg1dz($7'
 GOOGLE_MAPS_API_KEY = 'AIzaSyBa8sVfqoWSM_x5l1Dlb9ib3K7NYxc65JI'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'unnconnect.herokuapp.com',
+    '127.0.0.1',
+    'localhost',
+]
 
 
 # Application definition
