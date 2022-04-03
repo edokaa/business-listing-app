@@ -23,11 +23,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = '=+2v!@k5ioj_mdvjbd_ahoq35k-#klgfur3zhgb$ymfg1dz($7'
 
-# Google Maps API key
-GOOGLE_MAPS_API_KEY = 'AIzaSyBa8sVfqoWSM_x5l1Dlb9ib3K7NYxc65JI'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = [
     'unnconnect.herokuapp.com',
@@ -144,4 +142,4 @@ AUTH_USER_MODEL = 'businessDirectory.User'
 # compressing your files and creating unique names for each version
 # so they can safely be cached forever.
 
-STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+# STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"

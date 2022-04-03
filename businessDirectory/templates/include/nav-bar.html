@@ -54,13 +54,13 @@
               </a>
             </li>
               {% elif request.user.is_vendor %}
-                              <li class=" -child">
+            <li class=" -child">
               <a class="" href="{% url 'businessDirectory:vendor-listing' %}">
                 <i class="bi bi-list-stars"></i>
                 <span>My Listings</span>
               </a>
             </li>
-                              <li class=" -child">
+            <li class=" -child">
               <a class="" href="{% url 'businessDirectory:vendor-requests' %}">
                 <i class="bi bi-send"></i>
                 <span>My Sent Requests</span>
@@ -69,37 +69,37 @@
 
               {% endif %}
           {% else %}
-                                    <li class=" -child">
+            <li class=" -child">
               <a class="" href="{% url 'businessDirectory:admin' %}">
                 <i class="bi bi-person-workspace"></i>
                 <span>Dashboard</span>
               </a>
             </li>
-                                    <li class=" -child">
+            <li class=" -child">
               <a class="" href="{% url 'businessDirectory:users' type='customers' %}">
                 <i class="bi bi-people"></i>
                 <span>Customers</span>
               </a>
             </li>
-                                    <li class=" -child">
+            <li class=" -child">
               <a class="" href="{% url 'businessDirectory:users' type='vendors' %}">
                 <i class="bi bi-people-fill"></i>
                 <span>Vendors</span>
               </a>
             </li>
-                                    <li class=" -child">
+            <li class=" -child">
               <a class="" href="{% url 'businessDirectory:admin-listing' %}">
                 <i class="bi bi-cart-check"></i>
                 <span>Listings</span>
               </a>
             </li>
-                                    <li class=" -child">
+            <li class=" -child">
               <a class="" href="{% url 'businessDirectory:admin-categories' %}">
                 <i class="bi bi-check-square"></i>
                 <span>Business Categories</span>
               </a>
             </li>
-                                    <li class=" -child">
+            <li class=" -child">
               <a class="" href="{% url 'businessDirectory:vendor-requests' %}">
                 <i class="bi bi-arrow-down-right-square"></i>
                 <span>Business Requests</span>

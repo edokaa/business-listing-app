@@ -5,11 +5,13 @@ from django.views import View
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth import authenticate, login, logout
 
-from bizdir.settings import GOOGLE_MAPS_API_KEY
+from bizdir.settings import BASE_DIR
 from .models import Category, Business, Campus, Review, Uploads, User, CustomerSavedListing, CustomerMessage, \
     Notification, VendorBusinessRequest
 from .forms import AddListingForm, AddCategoryForm
 
+
+import os
 
 # =====================================================================
 # =================== Anonymous User / General ========================
@@ -202,7 +204,7 @@ class BusinessDetailsView(View):
             'business': business,
             'reviews': reviews,
             'images': images,
-            'api_key': GOOGLE_MAPS_API_KEY,
+            'api_key': get_google_key(),
         }
         return render(request, 'business-detail.html', context)
 
@@ -588,7 +590,7 @@ class ModifyListingView(View):
         self.context['messages'] = CustomerMessage.objects.all()
         self.context['notifications'] = Notification.objects.all()
         self.context['user_type'] = 'vendor'
-        self.context['api_key'] = GOOGLE_MAPS_API_KEY
+        self.context['api_key'] = get_google_key()
         return render(request, 'vendor/modify_listing.html', self.context)
 
     def post(self, request, pk):
@@ -748,3 +750,7 @@ def sideBarWidget():
     }
     return result
 
+def get_google_key():
+    with open(f"{BASE_DIR}/google.txt", 'r') as file:
+        key = file.read()
+    return key

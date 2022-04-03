@@ -10,51 +10,55 @@ $(".b-popover").popover();
 /* Magnific Popup */
 /* ************** */
 
-$(document).ready(function() {
-  $('.lightbox').magnificPopup({type:'image'});
+$(document).ready(function () {
+	$(".lightbox").magnificPopup({ type: "image" });
 });
 
 /* *************** */
 /* Custom Dropdown */
 /* *************** */
 
-$(document).ready(function(){
+$(document).ready(function () {
 	var hidden = true;
-	$(".b-dropdown").click(function(e){
+	$(".b-dropdown").click(function (e) {
 		e.preventDefault();
-		if (hidden){
-           $(this).next('.b-dropdown-block').slideToggle(400, function(){hidden = false;});
-      }
-	}); 
-	$('html').click(function() {
-        if (!hidden) {
-            $('.b-dropdown-block').slideUp();
-            hidden=true;
-        }
-   });
-   $('.b-dropdown-block').click(function(event) {
-        event.stopPropagation();
-   }); 
+		if (hidden) {
+			$(this)
+				.next(".b-dropdown-block")
+				.slideToggle(400, function () {
+					hidden = false;
+				});
+		}
+	});
+	$("html").click(function () {
+		if (!hidden) {
+			$(".b-dropdown-block").slideUp();
+			hidden = true;
+		}
+	});
+	$(".b-dropdown-block").click(function (event) {
+		event.stopPropagation();
+	});
 });
 
 /* ************ */
 /* Owl Carousel */
 /* ************ */
 
-$(document).ready(function() {	
+$(document).ready(function () {
 	/* Owl carousel */
 	$(".owl-carousel").owlCarousel({
-		slideSpeed : 500,
-		rewindSpeed : 1000,
-		mouseDrag : true,
-		stopOnHover : true
+		slideSpeed: 500,
+		rewindSpeed: 1000,
+		mouseDrag: true,
+		stopOnHover: true,
 	});
 	/* Own navigation */
-	$(".owl-nav-prev").click(function(){
-		$(this).parent().next(".owl-carousel").trigger('owl.prev');
+	$(".owl-nav-prev").click(function () {
+		$(this).parent().next(".owl-carousel").trigger("owl.prev");
 	});
-	$(".owl-nav-next").click(function(){
-		$(this).parent().next(".owl-carousel").trigger('owl.next');
+	$(".owl-nav-next").click(function () {
+		$(this).parent().next(".owl-carousel").trigger("owl.next");
 	});
 });
 
@@ -62,15 +66,15 @@ $(document).ready(function() {
 /* Scroll to top */
 /* ************* */
 
-$(document).ready(function() {
-	$(window).scroll(function(){
+$(document).ready(function () {
+	$(window).scroll(function () {
 		if ($(this).scrollTop() > 200) {
-			$('.totop').fadeIn();
+			$(".totop").fadeIn();
 		} else {
-			$('.totop').fadeOut();
+			$(".totop").fadeOut();
 		}
 	});
-	$(".totop a").click(function(e) {
+	$(".totop a").click(function (e) {
 		e.preventDefault();
 		$("html, body").animate({ scrollTop: 0 }, "slow");
 		return false;
@@ -81,77 +85,76 @@ $(document).ready(function() {
 /* Navigation menu */
 /* *************** */
 
-$(document).ready(function(){
+$(document).ready(function () {
+	$(".navy .a").on("click", function () {
+		$(".navy").find("li.active").removeClass("active");
+		$(this).parent("li").addClass("active");
+	});
 
-	$( '.navy .a' ).on( 'click', function () {
-	$( '.navy' ).find( 'li.active' ).removeClass( 'active' );
-	$( this ).parent( 'li' ).addClass( 'active' );
-});
+	$.fn.menumaker = function (options) {
+		var cssmenu = $(this),
+			settings = $.extend(
+				{
+					title: "Menu",
+					format: "dropdown",
+					sticky: false,
+				},
+				options
+			);
 
+		return this.each(function () {
+			cssmenu.prepend('<div id="menu-button">' + settings.title + "</div>");
+			$(this)
+				.find("#menu-button")
+				.on("click", function () {
+					$(this).toggleClass("menu-opened");
+					var mainmenu = $(this).next("ul");
+					if (mainmenu.hasClass("open")) {
+						mainmenu.slideUp().removeClass("open");
+					} else {
+						mainmenu.slideDown().addClass("open");
+						if (settings.format === "dropdown") {
+							mainmenu.find("ul").slideDown();
+						}
+					}
+				});
 
-	$.fn.menumaker = function(options) {
-      
-    var cssmenu = $(this), settings = $.extend({
-        title: "Menu",
-        format: "dropdown",
-        sticky: false
-      }, options);
+			cssmenu.find("li ul").parent().addClass("has-sub");
 
-      return this.each(function() {
-		
-		cssmenu.prepend('<div id="menu-button">' + settings.title + '</div>');
-		$(this).find("#menu-button").on('click', function(){
-		  $(this).toggleClass('menu-opened');
-		  var mainmenu = $(this).next('ul');
-		  if (mainmenu.hasClass('open')) { 
-			mainmenu.slideUp().removeClass('open');
-		  }
-		  else {
-			mainmenu.slideDown().addClass('open');
-			if (settings.format === "dropdown") {
-			  mainmenu.find('ul').slideDown();
-			}
-		  }
+			multiTg = function () {
+				cssmenu
+					.find(".has-sub")
+					.prepend('<span class="submenu-button"></span>');
+				cssmenu.find(".submenu-button").on("click", function () {
+					$(this).toggleClass("submenu-opened");
+					if ($(this).siblings("ul").hasClass("open")) {
+						$(this).siblings("ul").removeClass("open").slideUp();
+					} else {
+						$(this).siblings("ul").addClass("open").slideDown();
+					}
+				});
+			};
+
+			if (settings.format === "multitoggle") multiTg();
+			else cssmenu.addClass("dropdown");
+
+			if (settings.sticky === true) cssmenu.css("position", "fixed");
+
+			resizeFix = function () {
+				if ($(window).width() > 767) {
+					cssmenu.find("ul").show();
+				}
+				if ($(window).width() <= 767) {
+					cssmenu.find("ul").hide().removeClass("open");
+				}
+			};
+			resizeFix();
+			return $(window).on("resize", resizeFix);
 		});
-		
-		cssmenu.find('li ul').parent().addClass('has-sub');
-
-		multiTg = function() {
-		  cssmenu.find(".has-sub").prepend('<span class="submenu-button"></span>');
-		  cssmenu.find('.submenu-button').on('click', function() {
-			$(this).toggleClass('submenu-opened');
-			if ($(this).siblings('ul').hasClass('open')) {
-			  $(this).siblings('ul').removeClass('open').slideUp();
-			}
-			else {
-			  $(this).siblings('ul').addClass('open').slideDown();
-			}
-		  });
-		};
-
-		if (settings.format === 'multitoggle') multiTg();
-		else cssmenu.addClass('dropdown');
-
-        /* if (settings.sticky === true) cssmenu.css('position', 'fixed'); 
-		
-        resizeFix = function() {
-          if ($(window).width() > 767) {
-            cssmenu.find('ul').show();
-          }
-		  if ($(window).width() <= 767) {
-            cssmenu.find('ul').hide().removeClass('open');
-          }
-        };
-        resizeFix();
-        return $(window).on('resize', resizeFix); */
-		
-		
-      });
 	};
 
 	$(".navy").menumaker({
-		title: menu_title,
-		format: "multitoggle"
+		title: "menu",
+		format: "multitoggle",
 	});
 });
-

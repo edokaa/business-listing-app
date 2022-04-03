@@ -64,12 +64,18 @@ function initMap() {
     <!-- Page heading two starts -->
     <div class="page-heading-two">
         <div class="container">
+            <div class="row">
             <div class="col-md-7">
-                    <span class="business-logo-detail">
+                <div class="row">
+                    <div class="col-md-2 col-sm-12">
+                        <span class="business-logo-detail">
                         <img src="/{{ business.logo }}" class="pull-left rounded-3" width="100px" height="100px" />
                     </span>
-            <h2 class="business-title-detail">{{ business.name }}<span> {{business.category}}</span></h2>
-
+                </div>
+                <div class="col-md-10 col-sm-12">
+                    <h2 class="business-title-detail">{{ business.name }}<span> {{business.category}}</span></h2>
+                </div>
+            </div>
 
 
             </div>
@@ -78,6 +84,7 @@ function initMap() {
                 <a href="{% url 'businessDirectory:home' %}">Home</a> / Business Details
             </div>
             </div>
+        </div>
             <div class="clearfix"></div>
         </div>
     </div>
