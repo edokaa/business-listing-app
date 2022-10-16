@@ -751,6 +751,9 @@ def sideBarWidget():
     return result
 
 def get_google_key():
-    with open(f"{BASE_DIR}/google.txt", 'r') as file:
-        key = file.read()
-    return key
+    try:
+        with open(f"{BASE_DIR}/google.txt", 'r') as file:
+            key = file.read()
+        return key
+    except FileNotFoundError:
+        return ''
