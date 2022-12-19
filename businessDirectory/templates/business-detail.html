@@ -142,11 +142,14 @@
                                         <div class="alert alert-success">Open 24/7</div>
                                             <div class="clearfix"></div>
                                         <!-- end -->
-
+                                        <h4 class="info-subtitle"><i class="fa fa-list-ul"></i> Nearest Landmark </h4>
                                         <div id="ad-address"><span>{{business.address}}</span></div>
 
-                                        <h4 class="info-subtitle"><i class="fa fa-map-marker"></i> Direction</h4>
-                                        <div class="gmap" id="details-map"></div>
+                                        <h4 class="info-subtitle"><i class="fa fa-map-marker"></i> Location on Map</h4>
+                                        <!-- <div class="gmap" id="details-map"></div> -->
+                                        <div class="new_map">
+                                            {{ map | safe}}
+                                        </div>
                                         <div class="clearfix"></div>
 {#                                        <a href="javascript:void(0);" onclick="" class="pull-right btn btn-info" style="width:100%">Get Directions</a>#}
 {#                                        <div class="clearfix"></div>#}

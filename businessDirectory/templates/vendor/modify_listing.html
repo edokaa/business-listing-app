@@ -163,7 +163,33 @@
                             </div>
                             <div class="tab-pane fade" id="p-nav-3">
                                 <div class="single-property sp-agent">
-                                    <div id="map"></div>
+                                    <!-- map -->
+                                    <div class="set_map">
+                                        {{ map | safe}}
+                                    </div>
+                                    <!-- <div id="map"></div> -->
+                  <!-- Latitude/Longitude Form -->
+                  <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="row mb-3">
+                        <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Enter Longitude</label>
+                        <div class="col-md-8 col-lg-9">
+                          <input name="longitude" type="text" class="form-control"  required>
+                        </div>
+                      </div>
+                      <div class="row mb-3">
+                        <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Enter Latitude</label>
+                        <div class="col-md-8 col-lg-9">
+                          <input name="latitude" type="text" class="form-control"  required>
+                        </div>
+                      </div>
+        
+                      <div class="text-center">
+                        <button name="long_lat" type="submit" class="btn btn-primary" value="save">Save Changes</button>
+                      </div>
+                    </form><!-- End Longitude/Latitude Form -->
+  
+                                  
                                 </div>
                             </div>
                             <div class="tab-pane fade" id="p-nav-4">

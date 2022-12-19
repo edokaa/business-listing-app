@@ -10,8 +10,8 @@ from .models import Category, Business, Campus, Review, Uploads, User, CustomerS
     Notification, VendorBusinessRequest
 from .forms import AddListingForm, AddCategoryForm
 
-
-import os
+# map
+import folium
 
 # =====================================================================
 # =================== Anonymous User / General ========================
@@ -193,6 +193,15 @@ class BusinessDetailsView(View):
         reviews = Review.objects.all().filter(business_id=pk).order_by('-created_at')
 
         business = Business.objects.get(id=pk)
+        
+        # Creating map object
+        m = folium.Map(location=[float(business.latitude), float(business.longitude)], zoom_start=16)
+        folium.Marker(
+            [float(business.latitude), float(business.longitude)],
+            tooltip=business.name,
+            popup=business.landmark).add_to(m)
+        # html representation
+        map = m._repr_html_()
 
         side = sideBarWidget()
 
@@ -205,6 +214,7 @@ class BusinessDetailsView(View):
             'reviews': reviews,
             'images': images,
             'api_key': get_google_key(),
+            'map': map,
         }
         return render(request, 'business-detail.html', context)
 
@@ -242,8 +252,8 @@ class BusinessDetailsView(View):
 
 
 class AdminDashboardView(LoginRequiredMixin, View):
-    login_url = '/admin/login-page/'
-    redirect_field_name = 'admin/'
+    login_url = '/admin/login/'
+    redirect_field_name = '/admin/'
 
     def get(self, request):
         if request.user.is_customer or request.user.is_vendor:
@@ -271,7 +281,7 @@ class AdminDashboardView(LoginRequiredMixin, View):
 
 
 class DashboardListingsView(LoginRequiredMixin, View):
-    login_url = '/admin/login-page/'
+    login_url = '/admin/login/'
     redirect_field_name = 'admin/'
 
     def get(self, request):
@@ -310,7 +320,7 @@ class DashboardListingsView(LoginRequiredMixin, View):
 
 
 class DashboardUsersView(LoginRequiredMixin, View):
-    login_url = '/admin/login-page/'
+    login_url = '/admin/login/'
     redirect_field_name = 'admin/'
 
     def get(self, request, type):
@@ -431,7 +441,7 @@ def deleteBusinessRequest(request, pk):
 
 
 class BusinessCategoryView(LoginRequiredMixin, View):
-    login_url = '/admin/login-page/'
+    login_url = '/admin/login/'
     redirect_field_name = 'admin/'
 
     context = {}
@@ -584,8 +594,18 @@ class ModifyListingView(View):
     context = {}
 
     def get(self, request, pk):
+        business = Business.objects.get(id=pk)
+        # Creating map object
+        m = folium.Map(location=[float(business.latitude), float(business.longitude)], zoom_start=16)
+        folium.Marker(
+            [float(business.latitude), float(business.longitude)],
+            tooltip=business.name,
+            popup=business.landmark).add_to(m)
+        # html representation
+        map = m._repr_html_()
+        self.context['map'] = map
         self.context['title'] = 'Edit Listing'
-        self.context['listing'] = Business.objects.get(id=pk)
+        self.context['listing'] = business
         self.context['images'] = Uploads.objects.filter(business_id=pk)
         self.context['messages'] = CustomerMessage.objects.all()
         self.context['notifications'] = Notification.objects.all()
@@ -613,7 +633,16 @@ class ModifyListingView(View):
                 image_url=image,
                 business_id=pk
             )
+        if 'long_lat' in request.POST:
+            longitude = request.POST['longitude']
+            latitude = request.POST['latitude']
 
+            business = Business.objects.get(id=pk)
+
+            business.longitude = longitude
+            business.latitude = latitude
+
+            business.save()
         return HttpResponseRedirect(reverse('businessDirectory:modify-listing', args=(pk,)))
 
 
