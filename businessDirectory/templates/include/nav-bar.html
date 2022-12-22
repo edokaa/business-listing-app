@@ -35,7 +35,7 @@
           </a><!-- End Profile Iamge Icon -->
 
           <ul>
-                                {% if not request.user.is_admin %}
+                                {% if not request.user.is_staff %}
             <li class=" -child">
                   {% if request.user.is_customer %}
               <a class="" href="{% url 'businessDirectory:user-profile' user_type='customer' %}">
